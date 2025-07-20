@@ -1,6 +1,6 @@
 /* style.css */
 
-/* --- 전역 변수 (Root variables) --- */
+/* 전역 변수 */
 :root {
   --accent: #4D8DFF;
   --accent-dark: #1f5be5;
@@ -45,7 +45,7 @@ html,body {
   overflow: hidden;
 }
 
-/* --- 공통 뒤로가기/닫기 버튼 --- */
+/* 공통 뒤로가기/닫기 버튼 */
 .exit-button {
   position: absolute;
   top: 16px;
@@ -63,7 +63,7 @@ html,body {
   color: #ff5b5b;
 }
 
-/* --- 앱 헤더 --- */
+/* 앱 헤더 */
 .app-header {
   height:var(--header-h);
   display:flex;
@@ -78,7 +78,7 @@ html,body {
   font-weight:600;
 }
 
-/* --- 아카이브 목록 (멤버 리스트) --- */
+/* 아카이브 목록 (멤버 리스트) */
 .archive-list {
   flex:1;
   overflow-y:auto;
@@ -126,7 +126,7 @@ html,body {
   color:var(--text-light);
 }
 
-/* --- 앱 하단 탭바 --- */
+/* 앱 하단 탭바 */
 .app-tabbar {
   position:sticky;
   bottom:0;
@@ -154,7 +154,7 @@ html,body {
   font-weight:600;
 }
 
-/* --- 멤버 프로필 페이지 전용 스타일 --- */
+/* 멤버 프로필 페이지 전용 스타일 */
 .app-frame--profile {
   overflow:hidden;
 }
@@ -203,7 +203,7 @@ html,body {
   font-weight:700;
 }
 
-/* --- 공통 버튼 스타일 --- */
+/* 공통 버튼 스타일 */
 .primary-btn {
   background:var(--accent);
   color:#fff;
@@ -238,7 +238,7 @@ html,body {
   background:#cacaca;
 }
 
-/* --- 채팅 페이지 전용 스타일 --- */
+/* 채팅 페이지 전용 스타일 */
 .app-frame--chat {
   background:var(--bg-chat);
 }
@@ -271,14 +271,12 @@ html,body {
   justify-content: flex-end;
 }
 
-/* --- 채팅 메시지 공통 스타일 --- */
+/* 채팅 메시지 공통 스타일 */
 .chat-msg-wrap {
   display: flex;
-  flex-direction: column; /* 메시지와 시간을 세로로 배치 (원하는 대로 새 줄에) */
-  align-items: flex-start; /* 아티스트 메시지 랩 전체를 왼쪽으로 정렬 유지 */
-  max-width: 80%;
-  position: relative; /* 시간을 절대 위치시키기 위한 기준점 */
-  padding-bottom: 16px; /* 시간 표시를 위한 하단 여백 추가 (시간 글자 높이 + 여백) */
+  flex-direction: column;
+  align-items: flex-start; /* 아티스트 메시지 랩 전체를 왼쪽으로 정렬 */
+  max-width: 80%; /* 랩의 최대 너비 */
 }
 
 .chat-msg {
@@ -290,21 +288,22 @@ html,body {
   background:var(--bg-artist);
   color:var(--text-strong);
   display: inline-block; /* 내용 길이에 맞춰 너비 조절 */
+  position: relative; /* 시간 요소를 위한 기준점 */
+  padding-bottom: 16px; /* 시간이 텍스트와 겹치지 않도록 여백 확보 */
 }
 
-/* --- 채팅 메타 정보 (시간) --- */
+/* 채팅 메타 정보 (시간) */
 .chat-meta {
-  position: absolute; /* 부모인 .chat-msg-wrap 기준으로 위치 지정 */
-  bottom: 0px;        /* .chat-msg-wrap의 바닥에 붙임 */
-  right: 0px;         /* .chat-msg-wrap의 오른쪽에 붙임 */
+  position: absolute; /* 부모인 .chat-msg 기준으로 위치 지정 */
+  bottom: 0px;        /* .chat-msg의 바닥에 붙임 */
+  right: 0px;         /* .chat-msg의 오른쪽에 붙임 */
   font-size:11px;
   color:var(--text-light);
   white-space: nowrap; /* 시간이 줄바꿈되지 않도록 */
   padding-right: 2px; /* 말풍선 오른쪽 끝과 시간 사이의 간격 */
-  /* margin-top, margin-left, text-align 등은 필요 없습니다. */
 }
 
-/* --- 날짜 구분선 --- */
+/* 날짜 구분선 */
 .chat-date-sep {
   align-self:center;
   margin:16px 0 8px;
@@ -315,12 +314,12 @@ html,body {
   border-radius:16px;
 }
 
-/* --- 공통 숨김 클래스 --- */
+/* 공통 숨김 클래스 */
 .hidden {
-  display: none !important; /* 모달을 숨기는 중요한 스타일입니다! */
+  display: none !important; /* 모달을 숨기는 스타일 */
 }
 
-/* --- 모달 (닉네임 설정 등) --- */
+/* 모달 (닉네임 설정 등) */
 .modal {
   position:fixed;
   inset:0;
