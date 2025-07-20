@@ -285,7 +285,6 @@ html,body {
   font-size:15px;
   line-height:1.4;
   word-break:break-word;
-  /* 이미지 제거로 인해 텍스트 메시지만 남으므로, artist 메시지 스타일만 필요 */
   background:var(--bg-artist);
   color:var(--text-strong);
 }
@@ -311,15 +310,10 @@ html,body {
   border-radius:16px;
 }
 
-/* --- 채팅 이미지 관련 스타일 제거 --- */
-/* .chat-img { ... } */
-
-/* --- 이미지 팝업 관련 스타일 제거 --- */
-/* .popup { ... } */
-/* .popup-image { ... } */
-/* .popup-close { ... } */
-/* .popup-save { ... } */
-
+/* --- 공통 숨김 클래스 --- */
+.hidden {
+  display: none !important; /* 모달을 숨기는 중요한 스타일입니다! */
+}
 
 /* --- 모달 (닉네임 설정 등) --- */
 .modal {
