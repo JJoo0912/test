@@ -36,8 +36,8 @@ function backgroundSrc(id){
   return `images/${id}_background.jpg`;
 }
 function dataSrc(id){
-  const username = 'jjoo0912'; // 자신의 GitHub 사용자명으로 변경!
-  const repoName = 'XdinaryHeroesbubble'; // 자신의 GitHub Repository 이름으로 변경!
+  const username = 'JJoo0912'; // 자신의 GitHub 사용자명으로 변경!
+  const repoName = 'test'; // 자신의 GitHub Repository 이름으로 변경!
   const branch = 'main'; // 또는 'master' 등 사용 중인 브랜치 이름으로 변경!
   return `https://raw.githubusercontent.com/${username}/${repoName}/${branch}/data/${id}.csv`;
 }
