@@ -195,26 +195,41 @@ function renderChat(box, data, memberId){
     const msgWrap = document.createElement("div");
     msgWrap.className = "chat-msg-wrap"; // flexbox 컨테이너 역할
 
-    const msgDiv = document.createElement("div");
-    msgDiv.className = `chat-msg artist`;
+    const msgContent = document.createElement("div"); // 메시지 내용이 들어갈 컨테이너
+    msgContent.className = `chat-msg artist`; // 기존 말풍선 스타일 유지
 
-    if (msg.text && msg.text.trim() !== '') {
+    // msg.type에 따라 내용 렌더링 분기
+    if (msg.type === 'image' && msg.media) {
+      const img = document.createElement("img");
+      img.src = msg.media;
+      img.alt = "채팅 이미지";
+      img.className = "chat-media-image"; // CSS 스타일링을 위한 클래스
+      msgContent.appendChild(img);
+    } else if (msg.type === 'video' && msg.media) {
+      const video = document.createElement("video");
+      video.src = msg.media;
+      video.controls = true; // 동영상 컨트롤 표시 (재생/정지 등)
+      video.className = "chat-media-video"; // CSS 스타일링을 위한 클래스
+      msgContent.appendChild(video);
+    } else if (msg.text && msg.text.trim() !== '') {
+      // 기본 텍스트 메시지
       const msgText = document.createTextNode(msg.text.replace(/\(name\)/g, fanNick));
-      msgDiv.appendChild(msgText);
+      msgContent.appendChild(msgText);
     } else {
-      console.warn("Skipping message with no text content:", msg);
+      // 내용이 없는 메시지는 건너뛰기
+      console.warn("Skipping message with no content:", msg);
       return;
     }
 
-    // 말풍선(msgDiv)을 먼저 msgWrap에 추가
-    msgWrap.appendChild(msgDiv);
+    // 완성된 메시지 내용 컨테이너(msgContent)를 msgWrap에 추가
+    msgWrap.appendChild(msgContent);
     
-    // 시간 정보(meta)를 msgDiv가 아닌 msgWrap의 자식으로 추가 (⭐수정됨⭐)
-    if (msg.time && msg.text && msg.text.trim() !== '') {
+    // 시간 정보(meta)를 msgDiv가 아닌 msgWrap의 자식으로 추가
+    if (msg.time) { // msg.text 유무 검사 제거 (이미지/동영상도 시간 표시해야 하므로)
       const meta = document.createElement("div");
       meta.className = "chat-meta";
       meta.textContent = msg.time;
-      msgWrap.appendChild(meta); // ⭐수정됨: msgWrap의 직접 자식으로 추가⭐
+      msgWrap.appendChild(meta); // msgWrap의 직접 자식으로 추가
     }
     
     box.appendChild(msgWrap);
