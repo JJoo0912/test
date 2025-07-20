@@ -289,14 +289,15 @@ html,body {
   color:var(--text-strong);
   display: inline-block; /* 내용 길이에 맞춰 너비 조절 */
   position: relative; /* 시간 요소를 위한 기준점 */
-  padding-bottom: 16px; /* 시간이 텍스트와 겹치지 않도록 여백 확보 */
+  /* padding-bottom은 여기서 제거. chat-msg에 이미 10px 상하 패딩이 있습니다. */
+  /* 시간은 절대 위치로 내려가므로 메시지 본문의 하단 패딩은 텍스트에 대한 패딩만 필요합니다. */
 }
 
 /* 채팅 메타 정보 (시간) */
 .chat-meta {
-  position: absolute; /* 부모인 .chat-msg 기준으로 위치 지정 */
-  bottom: 0px;        /* .chat-msg의 바닥에 붙임 */
-  right: 0px;         /* .chat-msg의 오른쪽에 붙임 */
+  position: absolute;
+  bottom: -18px; /* 말풍선 아래로 약 18px 내림 (글자 높이와 여백 고려) */
+  right: 0px;
   font-size:11px;
   color:var(--text-light);
   white-space: nowrap; /* 시간이 줄바꿈되지 않도록 */
