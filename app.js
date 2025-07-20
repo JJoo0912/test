@@ -190,9 +190,11 @@ function renderChat(box, data, memberId){
       box.appendChild(sep);
       lastDate=msg.date;
     }
-    const msgWrap = document.createElement("div");
-    msgWrap.className = "chat-msg-wrap";
     
+    // chat-msg-wrap을 flexbox 컨테이너로 사용하여 말풍선과 시간을 같은 줄에 배치
+    const msgWrap = document.createElement("div");
+    msgWrap.className = "chat-msg-wrap"; // flexbox 컨테이너 역할
+
     const msgDiv = document.createElement("div");
     msgDiv.className = `chat-msg artist`;
 
@@ -204,16 +206,16 @@ function renderChat(box, data, memberId){
       return;
     }
 
-    // 시간 정보를 말풍선(msgDiv) 안에 추가 (핵심 수정)
+    // 말풍선(msgDiv)을 먼저 msgWrap에 추가
+    msgWrap.appendChild(msgDiv);
+    
+    // 시간 정보(meta)를 msgDiv가 아닌 msgWrap의 자식으로 추가 (⭐수정됨⭐)
     if (msg.time && msg.text && msg.text.trim() !== '') {
       const meta = document.createElement("div");
       meta.className = "chat-meta";
       meta.textContent = msg.time;
-      msgDiv.appendChild(meta);
+      msgWrap.appendChild(meta); // ⭐수정됨: msgWrap의 직접 자식으로 추가⭐
     }
-    
-    // 완성된 말풍선(msgDiv)을 랩(msgWrap)에 추가
-    msgWrap.appendChild(msgDiv);
     
     box.appendChild(msgWrap);
   });
