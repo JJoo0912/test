@@ -273,16 +273,15 @@ html,body {
 
 /* 채팅 메시지 공통 스타일 */
 .chat-msg-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* 아티스트 메시지 랩 전체를 왼쪽으로 정렬 */
+  display: flex; /* ⭐⭐ 플렉스 컨테이너로 설정하여 자식 요소를 가로로 배열 ⭐⭐ */
+  align-items: flex-end; /* ⭐⭐ 말풍선과 시간을 하단 기준으로 정렬 ⭐⭐ */
   max-width: 80%; /* 랩의 최대 너비 */
-  /* 각 메시지 덩어리(말풍선+시간) 사이의 간격을 확보 */
-  padding-bottom: 20px; 
+  margin-bottom: 8px; /* 각 메시지 덩어리 사이 간격 */
+  /* padding-bottom은 더 이상 필요 없으며, margin-bottom으로 간격 조절 */
 }
 
 .chat-msg {
-  padding:10px 14px; /* 말풍선 내부 패딩: 상하 10px, 좌우 14px */
+  padding:10px 14px;
   border-radius:18px;
   font-size:15px;
   line-height:1.4;
@@ -290,20 +289,17 @@ html,body {
   background:var(--bg-artist);
   color:var(--text-strong);
   display: inline-block; /* 내용 길이에 맞춰 너비 조절 */
-  position: relative; /* 시간 요소를 위한 기준점 */
+  /* position: relative; 더 이상 필요 없음 (chat-meta가 sibling이므로) */
 }
 
 /* 채팅 메타 정보 (시간) */
 .chat-meta {
-  position: absolute;
-  /* 말풍선 하단 경계선 바로 아래에 오도록 조절합니다. */
-  /* 이 값을 음수로 조절하여 말풍선 '밖'으로 시간을 내릴 수 있습니다. */
-  bottom: -15px; 
-  right: 0px;
   font-size:11px;
   color:var(--text-light);
   white-space: nowrap; /* 시간이 줄바꿈되지 않도록 */
-  padding-right: 2px; /* 말풍선 오른쪽 끝과 시간 사이의 간격 */
+  margin-left: 4px; /* ⭐⭐ 말풍선과 시간 사이의 간격 ⭐⭐ */
+  /* position: absolute; 더 이상 필요 없음 (flexbox로 정렬) */
+  /* bottom, right, padding-right 등 절대 위치 관련 속성 제거 */
 }
 
 /* 날짜 구분선 */
