@@ -294,9 +294,10 @@ html,body {
   font-size:11px;
   color:var(--text-light);
   margin-top: 2px;
-  margin-left: 8px;
-  display: block;
-  text-align: left;
+  margin-left: auto;   /* 이 줄을 추가하여 시간을 오른쪽으로 밀어냅니다. */
+  margin-right: 8px;   /* 말풍선과의 간격을 위해 오른쪽 여백을 줍니다. */
+  display: block;      /* 이 부분은 그대로 두세요. */
+  text-align: right;   /* 텍스트 자체를 오른쪽 정렬합니다. */
 }
 
 /* --- 날짜 구분선 --- */
