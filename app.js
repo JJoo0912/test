@@ -1,7 +1,6 @@
 /* app.js */
 
-/* --- 전역 상수 및 설정 --- */
-// (이전과 동일)
+/* 전역 상수 및 설정 */
 const MEMBER_LIST = [
   {id:"Gunil", display:"건일"},
   {id:"Jeongsu", display:"정수"},
@@ -11,8 +10,7 @@ const MEMBER_LIST = [
   {id:"Jooyeon", display:"주연"},
 ];
 
-/* --- 유틸리티 함수 (Utility Functions) --- */
-// (이전과 동일)
+/* 유틸리티 함수 */
 function qs(sel,root=document){return root.querySelector(sel);}
 function qsa(sel,root=document){return [...root.querySelectorAll(sel)];}
 function getParam(name){
@@ -36,9 +34,9 @@ function backgroundSrc(id){
   return `images/${id}_background.jpg`;
 }
 function dataSrc(id){
-  const username = 'JJoo0912'; // 자신의 GitHub 사용자명으로 변경!
-  const repoName = 'test'; // 자신의 GitHub Repository 이름으로 변경!
-  const branch = 'main'; // 또는 'master' 등 사용 중인 브랜치 이름으로 변경!
+  const username = 'JJoo0912';
+  const repoName = 'test';
+  const branch = 'main';
   return `https://raw.githubusercontent.com/${username}/${repoName}/${branch}/data/${id}.csv`;
 }
 function formatDateK(dateStr){
@@ -53,8 +51,7 @@ function formatDateK(dateStr){
   return dateStr;
 }
 
-/* --- 아카이브 페이지 (index.html) 초기화 --- */
-// (이전과 동일)
+/* 아카이브 페이지 초기화 */
 function initArchive(){
   const listEl = qs("#archiveList");
   if(!listEl) return;
@@ -74,8 +71,7 @@ function initArchive(){
   });
 }
 
-/* --- 멤버 프로필 페이지 (member.html) 초기화 --- */
-// (이전과 동일)
+/* 멤버 프로필 페이지 초기화 */
 function initMember(){
   const id=getParam("m");
   if(!id) {
@@ -98,7 +94,7 @@ function initMember(){
   }
 }
 
-/* --- 채팅 페이지 (chat.html) 초기화 --- */
+/* 채팅 페이지 초기화 */
 let currentMemberId=null;
 function initChat(){
   const id=getParam("m");
@@ -111,13 +107,10 @@ function initChat(){
   const titleEl=qs("#chatMemberName");
   if(titleEl) titleEl.textContent=disp;
 
-  // 🚨 여기를 수정: 닉네임 유무와 상관없이 항상 모달을 띄웁니다.
-  openNickModal(); 
-  // 닉네임 설정 후 loadChatData가 호출될 것입니다.
+  openNickModal(); // 닉네임 유무와 상관없이 항상 모달을 띄움
 }
 
-// CSV 텍스트를 파싱하여 JSON 객체 배열로 변환하는 함수
-// (이전과 동일)
+// CSV 텍스트를 파싱하여 JSON 객체 배열로 변환
 function parseCsv(csvText) {
   const lines = csvText.trim().split('\n');
   if (lines.length === 0) return [];
@@ -155,8 +148,7 @@ function parseCsv(csvText) {
   return result;
 }
 
-// 채팅 데이터 비동기 로드 함수
-// (이전과 동일)
+// 채팅 데이터 비동기 로드
 async function loadChatData(id){
   const box=qs("#chatScroll");
   if(!box) return;
@@ -185,8 +177,7 @@ async function loadChatData(id){
   }
 }
 
-// 채팅 UI 렌더링 함수
-// (이전과 동일)
+// 채팅 UI 렌더링
 function renderChat(box, data, memberId){
   box.innerHTML="";
   const fanNick=getNickname() || "빌런즈";
@@ -201,8 +192,10 @@ function renderChat(box, data, memberId){
     }
     const msgWrap = document.createElement("div");
     msgWrap.className = "chat-msg-wrap";
+    
     const msgDiv = document.createElement("div");
     msgDiv.className = `chat-msg artist`;
+
     if (msg.text && msg.text.trim() !== '') {
       const msgText = document.createTextNode(msg.text.replace(/\(name\)/g, fanNick));
       msgDiv.appendChild(msgText);
@@ -210,20 +203,24 @@ function renderChat(box, data, memberId){
       console.warn("Skipping message with no text content:", msg);
       return;
     }
-    msgWrap.appendChild(msgDiv);
+
+    // 시간 정보를 말풍선(msgDiv) 안에 추가 (핵심 수정)
     if (msg.time && msg.text && msg.text.trim() !== '') {
       const meta = document.createElement("div");
       meta.className = "chat-meta";
       meta.textContent = msg.time;
-      msgWrap.appendChild(meta);
+      msgDiv.appendChild(meta);
     }
+    
+    // 완성된 말풍선(msgDiv)을 랩(msgWrap)에 추가
+    msgWrap.appendChild(msgDiv);
+    
     box.appendChild(msgWrap);
   });
   box.scrollTop = box.scrollHeight;
 }
 
-/* --- 닉네임 설정 모달 관련 함수 --- */
-// (이전과 동일)
+/* 닉네임 설정 모달 관련 함수 */
 function openNickModal(){
   const m=qs("#nickModal");
   if(m) m.classList.remove("hidden");
@@ -241,8 +238,7 @@ function saveNickname(){
   if(nick){
     setNickname(nick);
     closeNickModal();
-    // 닉네임을 설정/확인한 후에만 채팅 데이터를 로드하도록 변경
-    if(currentMemberId){ // currentMemberId가 설정되어 있을 때만 호출
+    if(currentMemberId){
       loadChatData(currentMemberId);
     }
   } else {
@@ -250,8 +246,7 @@ function saveNickname(){
   }
 }
 
-/* --- 페이지 로드 시 초기화 함수 실행 --- */
-// (이전과 동일)
+/* 페이지 로드 시 초기화 함수 실행 */
 document.addEventListener("DOMContentLoaded",()=>{
   const path=location.pathname;
   if(path.endsWith("index.html") || path.endsWith("/")){
@@ -262,4 +257,3 @@ document.addEventListener("DOMContentLoaded",()=>{
     initChat();
   }
 });
-
