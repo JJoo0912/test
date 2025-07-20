@@ -277,10 +277,12 @@ html,body {
   flex-direction: column;
   align-items: flex-start; /* 아티스트 메시지 랩 전체를 왼쪽으로 정렬 */
   max-width: 80%; /* 랩의 최대 너비 */
+  /* 각 메시지 덩어리(말풍선+시간) 사이의 간격을 확보 */
+  padding-bottom: 20px; 
 }
 
 .chat-msg {
-  padding:10px 14px;
+  padding:10px 14px; /* 말풍선 내부 패딩: 상하 10px, 좌우 14px */
   border-radius:18px;
   font-size:15px;
   line-height:1.4;
@@ -289,14 +291,14 @@ html,body {
   color:var(--text-strong);
   display: inline-block; /* 내용 길이에 맞춰 너비 조절 */
   position: relative; /* 시간 요소를 위한 기준점 */
-  /* padding-bottom은 여기서 제거. chat-msg에 이미 10px 상하 패딩이 있습니다. */
-  /* 시간은 절대 위치로 내려가므로 메시지 본문의 하단 패딩은 텍스트에 대한 패딩만 필요합니다. */
 }
 
 /* 채팅 메타 정보 (시간) */
 .chat-meta {
   position: absolute;
-  bottom: -18px; /* 말풍선 아래로 약 18px 내림 (글자 높이와 여백 고려) */
+  /* 말풍선 하단 경계선 바로 아래에 오도록 조절합니다. */
+  /* 이 값을 음수로 조절하여 말풍선 '밖'으로 시간을 내릴 수 있습니다. */
+  bottom: -15px; 
   right: 0px;
   font-size:11px;
   color:var(--text-light);
