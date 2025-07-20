@@ -277,7 +277,6 @@ html,body {
   align-items: flex-end; /* ⭐⭐ 말풍선과 시간을 하단 기준으로 정렬 ⭐⭐ */
   max-width: 80%; /* 랩의 최대 너비 */
   margin-bottom: 8px; /* 각 메시지 덩어리 사이 간격 */
-  /* padding-bottom은 더 이상 필요 없으며, margin-bottom으로 간격 조절 */
 }
 
 .chat-msg {
@@ -289,7 +288,15 @@ html,body {
   background:var(--bg-artist);
   color:var(--text-strong);
   display: inline-block; /* 내용 길이에 맞춰 너비 조절 */
-  /* position: relative; 더 이상 필요 없음 (chat-meta가 sibling이므로) */
+  /* 이미지/동영상 메시지의 경우 배경색 제거 */
+  background: none; 
+  padding: 0; /* 이미지/동영상은 말풍선 패딩 제거 */
+}
+
+/* 텍스트 메시지 전용 스타일 (말풍선 배경색 다시 적용) */
+.chat-msg:not(:has(img)):not(:has(video)) {
+  background:var(--bg-artist);
+  padding:10px 14px;
 }
 
 /* 채팅 메타 정보 (시간) */
@@ -298,8 +305,21 @@ html,body {
   color:var(--text-light);
   white-space: nowrap; /* 시간이 줄바꿈되지 않도록 */
   margin-left: 4px; /* ⭐⭐ 말풍선과 시간 사이의 간격 ⭐⭐ */
-  /* position: absolute; 더 이상 필요 없음 (flexbox로 정렬) */
-  /* bottom, right, padding-right 등 절대 위치 관련 속성 제거 */
+}
+
+/* ⭐⭐⭐ 이미지 및 동영상 메시지 스타일 ⭐⭐⭐ */
+.chat-media-image,
+.chat-media-video {
+  max-width: 250px; /* 이미지/동영상 최대 너비 */
+  max-height: 250px; /* 이미지/동영상 최대 높이 */
+  border-radius: var(--radius-md); /* 모서리 둥글게 */
+  object-fit: cover;
+  display: block; /* 줄 바꿈 방지 및 너비 조절을 위해 */
+}
+
+.chat-media-video {
+  width: 100%; /* 부모 너비에 맞춤 */
+  height: auto;
 }
 
 /* 날짜 구분선 */
