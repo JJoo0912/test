@@ -274,9 +274,11 @@ html,body {
 /* --- 채팅 메시지 공통 스타일 --- */
 .chat-msg-wrap {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: column; /* 메시지와 시간을 세로로 배치 (원하는 대로 새 줄에) */
+  align-items: flex-start; /* 아티스트 메시지 랩 전체를 왼쪽으로 정렬 유지 */
   max-width: 80%;
+  position: relative; /* 시간을 절대 위치시키기 위한 기준점 */
+  padding-bottom: 16px; /* 시간 표시를 위한 하단 여백 추가 (시간 글자 높이 + 여백) */
 }
 
 .chat-msg {
@@ -287,17 +289,19 @@ html,body {
   word-break:break-word;
   background:var(--bg-artist);
   color:var(--text-strong);
+  display: inline-block; /* 내용 길이에 맞춰 너비 조절 */
 }
 
 /* --- 채팅 메타 정보 (시간) --- */
 .chat-meta {
+  position: absolute; /* 부모인 .chat-msg-wrap 기준으로 위치 지정 */
+  bottom: 0px;        /* .chat-msg-wrap의 바닥에 붙임 */
+  right: 0px;         /* .chat-msg-wrap의 오른쪽에 붙임 */
   font-size:11px;
   color:var(--text-light);
-  margin-top: 2px;
-  margin-left: auto;   /* 이 줄을 추가하여 시간을 오른쪽으로 밀어냅니다. */
-  margin-right: 8px;   /* 말풍선과의 간격을 위해 오른쪽 여백을 줍니다. */
-  display: block;      /* 이 부분은 그대로 두세요. */
-  text-align: right;   /* 텍스트 자체를 오른쪽 정렬합니다. */
+  white-space: nowrap; /* 시간이 줄바꿈되지 않도록 */
+  padding-right: 2px; /* 말풍선 오른쪽 끝과 시간 사이의 간격 */
+  /* margin-top, margin-left, text-align 등은 필요 없습니다. */
 }
 
 /* --- 날짜 구분선 --- */
