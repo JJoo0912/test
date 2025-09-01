@@ -7,9 +7,7 @@ const MEMBER_LIST = [
   { id: "Jooyeon", display: "주연" }
 ];
 
-/* ======================================
-   화면 비율 9:16 유지
-====================================== */
+/* 화면 비율 9:16 유지 */
 function setAppAspectRatio() {
   const app = document.getElementById("app");
   const w = window.innerWidth;
@@ -109,7 +107,7 @@ async function loadChat(memberId) {
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
 
-/* 이미지/동영상 팝업 기능 */
+/* 이미지/동영상 팝업 기능 (member.html 수정 반영) */
 function openMediaPopup(src, type) {
   const popup = document.getElementById("mediaPopup");
   const content = document.getElementById("mediaPopupContent");
@@ -183,18 +181,8 @@ function initMemberPage() {
   document.getElementById("memberProfile").src = `images/${member.id}_profile.jpg`;
   document.getElementById("memberBg").src = `images/${member.id}_background.jpg`;
 
-  document.getElementById("memberStatus").textContent = "팬과 소통 중…";
-
   document.getElementById("viewChatBtn").addEventListener("click", () => {
     window.location.href = `chat.html?member=${member.id}`;
-  });
-
-  document.getElementById("memberProfileBtn").addEventListener("click", () => {
-    openMediaPopup(`images/${member.id}_profile.jpg`, "image");
-  });
-
-  document.getElementById("memberBgWrap").addEventListener("click", () => {
-    openMediaPopup(`images/${member.id}_background.jpg`, "image");
   });
 }
 
