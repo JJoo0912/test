@@ -63,18 +63,16 @@ html, body {
 
 .exit-button:hover { color: #ff5b5b; }
 
-/* 앱 헤더 - index.html 타이틀 UI 원래 스타일 */
+/* 앱 헤더 */
 .app-header {
   height:var(--header-h);
   display:flex;
   align-items:center;
-  justify-content:flex-start;
-  padding: 0 16px;
+  justify-content:center;
   border-bottom:1px solid #e0e0e0;
-  background: var(--bg);
 }
 
-.app-header .app-title {
+.app-header--center .app-title {
   margin:0;
   font-size:18px;
   font-weight:600;
