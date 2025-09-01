@@ -357,59 +357,75 @@ input[type="datetime-local"], input[type="file"] {
   margin-top:16px;
 }
 
-/* ================================
-   이미지/동영상 팝업
-================================ */
+/* =========================
+   이미지/동영상 팝업 모달
+========================= */
+#mediaPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
 .media-popup-card {
-  position:relative;
-  background:#fff;
-  padding:8px;
-  border-radius:var(--radius-md);
-  max-width:90vw; /* 화면 기준 제한 */
-  max-height:90vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 8px 24px rgba(0,0,0,0.3);
-  overflow:hidden;
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: #fff;
+  border-radius: var(--radius-md); /* 팝업 내용만 둥글게 */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
 }
 
 .media-popup-content {
-  max-width:100%;
-  max-height:calc(100vh - 80px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .media-popup-content img,
 .media-popup-content video {
-  max-width:100%;
-  max-height:100%;
-  border-radius:var(--radius-md);
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+}
+
+.media-popup-close,
+.media-popup-download {
+  position: absolute;
+  background: rgba(0,0,0,0.3);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+
+.media-popup-close:hover,
+.media-popup-download:hover {
+  background: rgba(0,0,0,0.6);
 }
 
 .media-popup-close {
-  position:absolute;
-  top:8px;
-  right:8px; /* 우측 상단 */
-  background:none;
-  border:none;
-  font-size:28px;
-  cursor:pointer;
-  z-index:30;
-  color:#333;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
 }
 
 .media-popup-download {
-  position:absolute;
-  bottom:8px;
-  right:8px; /* 우측 하단 */
-  background:none;
-  border:none;
-  font-size:24px;
-  cursor:pointer;
-  z-index:30;
-  color:#333;
+  bottom: 8px;
+  right: 8px;
+  z-index: 10;
 }
