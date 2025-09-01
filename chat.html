@@ -18,6 +18,15 @@
 
     <div id="chatScroll" class="chat-scroll"></div>
 
+    <!-- 이미지/동영상 팝업 모달 -->
+    <div id="mediaPopup" class="modal hidden">
+      <div class="media-popup-card">
+        <button class="media-popup-close" onclick="closeMediaPopup()">×</button>
+        <div class="media-popup-content" id="mediaPopupContent"></div>
+        <button class="media-popup-download" id="mediaPopupDownload">⬇</button>
+      </div>
+    </div>
+
     <div id="nickModal" class="modal hidden">
       <div class="modal-card">
         <h3>내 닉네임 설정</h3>
