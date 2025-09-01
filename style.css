@@ -44,14 +44,14 @@ html, body {
   position:relative;
   margin:0 auto;
   overflow: hidden;
-  border-radius:0; /* 화면 자체는 네모 */
+  border-radius:0;
 }
 
 /* 공통 뒤로가기/닫기 버튼 */
 .exit-button {
   position: absolute;
   top: 16px;
-  right: 16px; /* 우측 상단 */
+  right: 16px;
   font-size: 28px;
   background: none;
   border: none;
@@ -61,9 +61,7 @@ html, body {
   transition: color 0.2s;
 }
 
-.exit-button:hover {
-  color: #ff5b5b;
-}
+.exit-button:hover { color: #ff5b5b; }
 
 /* 앱 헤더 */
 .app-header {
@@ -81,11 +79,7 @@ html, body {
 }
 
 /* 아카이브 목록 */
-.archive-list {
-  flex:1;
-  overflow-y:auto;
-  padding:8px 0 80px;
-}
+.archive-list { flex:1; overflow-y:auto; padding:8px 0 80px; }
 
 .archive-row {
   display:flex;
@@ -95,18 +89,11 @@ html, body {
   color:inherit;
 }
 
-.archive-row:hover {
-  background:rgba(77,141,255,.08);
-}
+.archive-row:hover { background:rgba(77,141,255,.08); }
 
-.archive-row + .archive-row {
-  border-top:1px solid #f2f2f2;
-}
+.archive-row + .archive-row { border-top:1px solid #f2f2f2; }
 
-.archive-row-avatar-wrap {
-  position:relative;
-  margin-right:12px;
-}
+.archive-row-avatar-wrap { position:relative; margin-right:12px; }
 
 .archive-row-avatar {
   width:48px;
@@ -117,16 +104,9 @@ html, body {
   background:#dfe8ff;
 }
 
-.archive-row-name {
-  font-size:16px;
-  font-weight:600;
-}
+.archive-row-name { font-size:16px; font-weight:600; }
 
-.archive-row-status {
-  margin-left:auto;
-  font-size:12px;
-  color:var(--text-light);
-}
+.archive-row-status { margin-left:auto; font-size:12px; color:var(--text-light); }
 
 /* 앱 하단 탭바 */
 .app-tabbar {
@@ -151,22 +131,12 @@ html, body {
   cursor:pointer;
 }
 
-.tab-btn--active {
-  color:var(--accent);
-  font-weight:600;
-}
+.tab-btn--active { color:var(--accent); font-weight:600; }
 
 /* 멤버 프로필 페이지 */
-.app-frame--profile {
-  overflow:hidden;
-}
+.app-frame--profile { overflow:hidden; }
 
-.member-bg-wrap {
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  z-index:0;
-}
+.member-bg-wrap { position:absolute; inset:0; overflow:hidden; z-index:0; }
 
 .member-bg {
   width:100%;
@@ -255,12 +225,7 @@ html, body {
 }
 
 /* 채팅 메시지 */
-.chat-msg-wrap {
-  display:flex;
-  align-items:flex-end;
-  max-width:80%;
-  margin-bottom:8px;
-}
+.chat-msg-wrap { display:flex; align-items:flex-end; max-width:80%; margin-bottom:8px; }
 
 .chat-msg {
   padding:10px 14px;
@@ -297,10 +262,7 @@ html, body {
   display: block;
 }
 
-.chat-media-video {
-  width:100%;
-  height:auto;
-}
+.chat-media-video { width:100%; height:auto; }
 
 /* 날짜 구분선 */
 .chat-date-sep {
@@ -361,34 +323,34 @@ input[type="datetime-local"], input[type="file"] {
    이미지/동영상 팝업 모달
 ========================= */
 #mediaPopup {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: absolute; /* app-frame 기준 */
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 50;
 }
 
 .media-popup-card {
   position: relative;
-  max-width: 70vw;
-  max-height: 70vh;
-  background: #fff;
-  border-radius: var(--radius-md);
-  overflow: hidden;
+  width: 90%;             /* app-frame 너비 기준 */
+  max-width: var(--app-max-w);
+  height: auto;            /* 내용에 따라 자동 */
+  max-height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #fff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
   padding: 8px;
 }
 
 .media-popup-content {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -396,8 +358,8 @@ input[type="datetime-local"], input[type="file"] {
 
 .media-popup-content img,
 .media-popup-content video {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;           /* 카드 너비 기준 */
+  height: auto;          /* 비율 유지 */
   border-radius: var(--radius-md);
   object-fit: contain;
 }
@@ -421,12 +383,6 @@ input[type="datetime-local"], input[type="file"] {
   background: rgba(0,0,0,0.6);
 }
 
-.media-popup-close {
-  top: 8px;
-  right: 8px;
-}
+.media-popup-close { top: 8px; right: 8px; }
 
-.media-popup-download {
-  bottom: 8px;
-  right: 8px;
-}
+.media-popup-download { bottom: 8px; right: 8px; }
