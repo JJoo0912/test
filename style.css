@@ -20,8 +20,14 @@
   --app-max-w: 420px;
 }
 
-html,body {
-  margin:0; padding:0;
+/* 화면 고정 및 스크롤 구조 */
+html, body {
+  width: 1179px;
+  height: 2556px;
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   background:#000;
   color:var(--text);
@@ -30,7 +36,8 @@ html,body {
 .app-bg {
   display:flex;
   justify-content:center;
-  min-height:100vh;
+  width: 1179px;
+  height: 2556px;
 }
 
 .app-frame {
@@ -273,10 +280,10 @@ html,body {
 
 /* 채팅 메시지 공통 스타일 */
 .chat-msg-wrap {
-  display: flex; /* ⭐⭐ 플렉스 컨테이너로 설정하여 자식 요소를 가로로 배열 ⭐⭐ */
-  align-items: flex-end; /* ⭐⭐ 말풍선과 시간을 하단 기준으로 정렬 ⭐⭐ */
-  max-width: 80%; /* 랩의 최대 너비 */
-  margin-bottom: 8px; /* 각 메시지 덩어리 사이 간격 */
+  display: flex;
+  align-items: flex-end;
+  max-width: 80%;
+  margin-bottom: 8px;
 }
 
 .chat-msg {
@@ -287,10 +294,9 @@ html,body {
   word-break:break-word;
   background:var(--bg-artist);
   color:var(--text-strong);
-  display: inline-block; /* 내용 길이에 맞춰 너비 조절 */
-  /* 이미지/동영상 메시지의 경우 배경색 제거 */
+  display: inline-block;
   background: none; 
-  padding: 0; /* 이미지/동영상은 말풍선 패딩 제거 */
+  padding: 0; 
 }
 
 /* 텍스트 메시지 전용 스타일 (말풍선 배경색 다시 적용) */
@@ -303,22 +309,22 @@ html,body {
 .chat-meta {
   font-size:11px;
   color:var(--text-light);
-  white-space: nowrap; /* 시간이 줄바꿈되지 않도록 */
-  margin-left: 4px; /* ⭐⭐ 말풍선과 시간 사이의 간격 ⭐⭐ */
+  white-space: nowrap;
+  margin-left: 4px;
 }
 
-/* ⭐⭐⭐ 이미지 및 동영상 메시지 스타일 ⭐⭐⭐ */
+/* 이미지 및 동영상 메시지 스타일 */
 .chat-media-image,
 .chat-media-video {
-  max-width: 250px; /* 이미지/동영상 최대 너비 */
-  max-height: 250px; /* 이미지/동영상 최대 높이 */
-  border-radius: var(--radius-md); /* 모서리 둥글게 */
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: var(--radius-md);
   object-fit: cover;
-  display: block; /* 줄 바꿈 방지 및 너비 조절을 위해 */
+  display: block;
 }
 
 .chat-media-video {
-  width: 100%; /* 부모 너비에 맞춤 */
+  width: 100%;
   height: auto;
 }
 
@@ -335,7 +341,7 @@ html,body {
 
 /* 공통 숨김 클래스 */
 .hidden {
-  display: none !important; /* 모달을 숨기는 스타일 */
+  display: none !important;
 }
 
 /* 모달 (닉네임 설정 등) */
