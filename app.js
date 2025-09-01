@@ -9,8 +9,6 @@ const MEMBER_LIST = [
 
 /* ======================================
    화면 비율 9:16 유지
-   - 짧은 쪽을 기준으로 9:16 비율
-   - 패드 가로 모드 시 가로 제한
 ====================================== */
 function setAppAspectRatio() {
   const app = document.getElementById("app");
@@ -22,14 +20,12 @@ function setAppAspectRatio() {
   let appW, appH;
 
   if (short === h) {
-    // 세로가 짧은 경우 (폰 세로)
     appH = short;
     appW = (appH / 16) * 9;
   } else {
-    // 가로가 짧은 경우 (태블릿 가로)
     appW = short;
     appH = (appW / 9) * 16;
-    if (appH > long) appH = long; // 긴 쪽 제한
+    if (appH > long) appH = long;
   }
 
   app.style.width = `${appW}px`;
@@ -92,8 +88,6 @@ async function loadChat(memberId) {
       img.src = msgObj.media; 
       img.className="chat-media-image"; 
       msgContent.appendChild(img);
-
-      // 이미지 클릭 이벤트
       img.addEventListener("click", () => openMediaPopup(img.src, "image"));
     }
     else if (msgObj.type === "video" || msgObj.type === "vedio") {
@@ -102,8 +96,6 @@ async function loadChat(memberId) {
       vid.className="chat-media-video"; 
       vid.controls=true;
       msgContent.appendChild(vid);
-
-      // 동영상 클릭 이벤트
       vid.addEventListener("click", () => openMediaPopup(vid.src, "video"));
     }
 
@@ -129,21 +121,14 @@ function openMediaPopup(src, type) {
   if (type === "image") {
     const img = document.createElement("img");
     img.src = src;
-    img.style.maxWidth = "90vw";
-    img.style.maxHeight = "80vh";
-    img.style.borderRadius = "16px";
     content.appendChild(img);
   } else if (type === "video") {
     const vid = document.createElement("video");
     vid.src = src;
     vid.controls = true;
-    vid.style.maxWidth = "90vw";
-    vid.style.maxHeight = "80vh";
-    vid.style.borderRadius = "16px";
     content.appendChild(vid);
   }
 
-  // 다운로드 버튼
   downloadBtn.onclick = () => {
     const a = document.createElement("a");
     a.href = src;
