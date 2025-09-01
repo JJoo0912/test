@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css - 전체 적용, 화면 비율 9:16, 모서리 네모 */
 
 /* 전역 변수 */
 :root {
@@ -11,9 +11,9 @@
   --text-strong: #111;
   --text: #333;
   --text-light: #888;
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --radius-sm: 12px;
+  --radius-lg: 0px; /* 모서리 네모로 변경 */
+  --radius-md: 0px;
+  --radius-sm: 0px;
   --shadow-card: 0 4px 20px rgba(0,0,0,.08);
   --header-h: 56px;
   --tabbar-h: 60px;
@@ -21,30 +21,30 @@
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   background: #000;
   color: var(--text);
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 .app-bg {
   display: flex;
   justify-content: center;
-  align-items: center; /* 화면 중앙 정렬 */
-  min-height: 100vh;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .app-frame {
   background: var(--bg);
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden; /* 스크롤 제거 */
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
-  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
 /* 공통 뒤로가기/닫기 버튼 */
@@ -111,7 +111,7 @@ html, body {
 .archive-row-avatar {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
+  border-radius: 0%; /* 모서리 네모 */
   border: 2px solid var(--accent);
   object-fit: cover;
   background: #dfe8ff;
@@ -130,6 +130,8 @@ html, body {
 
 /* 앱 하단 탭바 */
 .app-tabbar {
+  position: sticky;
+  bottom: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -181,7 +183,7 @@ html, body {
   max-width: 300px;
   background: rgba(255,255,255,.9);
   padding: 32px 16px;
-  border-radius: var(--radius-lg);
+  border-radius: 0px; /* 모서리 네모 */
   box-shadow: var(--shadow-card);
   text-align: center;
   z-index: 10;
@@ -191,7 +193,7 @@ html, body {
   width: 120px;
   height: 120px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 0px; /* 모서리 네모 */
   border: 4px solid var(--accent);
   margin-top: -90px;
   background: #fff;
@@ -210,7 +212,7 @@ html, body {
   border: none;
   padding: 12px 24px;
   font-size: 16px;
-  border-radius: var(--radius-md);
+  border-radius: 0px; /* 모서리 네모 */
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -228,7 +230,7 @@ html, body {
   background: #e0e0e0;
   border: none;
   padding: 8px 16px;
-  border-radius: var(--radius-sm);
+  border-radius: 0px; /* 모서리 네모 */
   font-size: 14px;
   cursor: pointer;
   transition: background 0.2s;
@@ -280,21 +282,20 @@ html, body {
 }
 
 .chat-msg {
-  padding: 10px 14px;
-  border-radius: 18px;
+  background: none;
+  padding: 0;
   font-size: 15px;
   line-height: 1.4;
   word-break: break-word;
-  display: inline-block;
-  background: none;
-  padding: 0;
 }
 
+/* 텍스트 메시지 전용 스타일 */
 .chat-msg:not(:has(img)):not(:has(video)) {
   background: var(--bg-artist);
   padding: 10px 14px;
 }
 
+/* 채팅 메타 정보 */
 .chat-meta {
   font-size: 11px;
   color: var(--text-light);
@@ -302,12 +303,12 @@ html, body {
   margin-left: 4px;
 }
 
-/* 이미지 및 동영상 */
+/* 이미지 및 동영상 메시지 스타일 */
 .chat-media-image,
 .chat-media-video {
   max-width: 250px;
   max-height: 250px;
-  border-radius: var(--radius-md);
+  border-radius: 0px; /* 모서리 네모 */
   object-fit: cover;
   display: block;
 }
@@ -325,10 +326,9 @@ html, body {
   font-size: 12px;
   color: var(--text-light);
   background: rgba(0,0,0,.05);
-  border-radius: 16px;
 }
 
-/* 숨김 클래스 */
+/* 공통 숨김 클래스 */
 .hidden {
   display: none !important;
 }
@@ -349,7 +349,7 @@ html, body {
   max-width: 300px;
   background: var(--bg);
   padding: 24px 16px;
-  border-radius: var(--radius-md);
+  border-radius: 0px; /* 모서리 네모 */
   text-align: center;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
@@ -365,7 +365,7 @@ input[type="text"], input[type="date"], input[type="password"], input[type="date
   margin-top: 4px;
   margin-bottom: 12px;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 0px; /* 모서리 네모 */
   border: 1px solid #ccc;
   font-size: 14px;
 }
