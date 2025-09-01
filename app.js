@@ -129,10 +129,10 @@ function openMediaPopup(src, type) {
     content.appendChild(vid);
   }
 
-  // 다운로드 버튼 → SVG 아이콘 적용
+  // 다운로드 버튼 → 아래 화살표 SVG 적용
   downloadBtn.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
-      <path d="M5 20h14v-2H5v2zm7-18l-7 7h4v6h6v-6h4l-7-7z"/>
+      <path d="M5 18h14v-2H5v2zm7-2l-7-7h4V4h6v5h4l-7 7z"/>
     </svg>
   `;
   downloadBtn.onclick = () => {
@@ -153,7 +153,7 @@ function closeMediaPopup() {
   const downloadBtn = document.getElementById("mediaPopupDownload");
   popup.classList.add("hidden");
   content.innerHTML = "";
-  downloadBtn.innerHTML = ""; // 아이콘 제거
+  downloadBtn.innerHTML = "";
   downloadBtn.onclick = null;
 }
 
