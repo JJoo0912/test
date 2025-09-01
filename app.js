@@ -109,9 +109,7 @@ async function loadChat(memberId) {
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
 
-/* =========================
-   이미지/동영상 팝업 기능
-========================= */
+/* 이미지/동영상 팝업 기능 */
 function openMediaPopup(src, type) {
   const popup = document.getElementById("mediaPopup");
   const content = document.getElementById("mediaPopupContent");
@@ -129,7 +127,6 @@ function openMediaPopup(src, type) {
     content.appendChild(vid);
   }
 
-  // 다운로드 버튼 → 아래 화살표 SVG 적용
   downloadBtn.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
       <path d="M5 18h14v-2H5v2zm7-2l-7-7h4V4h6v5h4l-7 7z"/>
@@ -186,8 +183,18 @@ function initMemberPage() {
   document.getElementById("memberProfile").src = `images/${member.id}_profile.jpg`;
   document.getElementById("memberBg").src = `images/${member.id}_background.jpg`;
 
+  document.getElementById("memberStatus").textContent = "팬과 소통 중…";
+
   document.getElementById("viewChatBtn").addEventListener("click", () => {
     window.location.href = `chat.html?member=${member.id}`;
+  });
+
+  document.getElementById("memberProfileBtn").addEventListener("click", () => {
+    openMediaPopup(`images/${member.id}_profile.jpg`, "image");
+  });
+
+  document.getElementById("memberBgWrap").addEventListener("click", () => {
+    openMediaPopup(`images/${member.id}_background.jpg`, "image");
   });
 }
 
