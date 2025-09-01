@@ -177,13 +177,47 @@ function initMemberPage() {
   const member = MEMBER_LIST.find(m => m.id === memberId);
   if (!member) return;
 
-  document.getElementById("memberDisplayName").textContent = member.display;
-  document.getElementById("memberProfile").src = `images/${member.id}_profile.jpg`;
-  document.getElementById("memberBg").src = `images/${member.id}_background.jpg`;
+  const displayNameEl = document.getElementById("memberDisplayName");
+  const profileImgEl = document.getElementById("memberProfile");
+  const bgImgEl = document.getElementById("memberBg");
+  const viewChatBtn = document.getElementById("viewChatBtn");
 
-  document.getElementById("viewChatBtn").addEventListener("click", () => {
+  displayNameEl.textContent = member.display;
+  profileImgEl.src = `images/${member.id}_profile.jpg`;
+  bgImgEl.src = `images/${member.id}_background.jpg`;
+
+  viewChatBtn.addEventListener("click", () => {
     window.location.href = `chat.html?member=${member.id}`;
   });
+
+  /* 닫기 버튼 추가 */
+  let exitBtn = document.querySelector(".exit-button");
+  if (!exitBtn) {
+    exitBtn = document.createElement("button");
+    exitBtn.className = "exit-button";
+    exitBtn.innerHTML = "&times;";
+    exitBtn.onclick = () => window.history.back();
+    document.getElementById("app").appendChild(exitBtn);
+  }
+
+  /* 카드 높이 자동 조정 */
+  function adjustMemberCardHeight() {
+    const card = document.querySelector(".member-profile-card");
+    const profileImg = document.querySelector(".member-profile-img");
+    const button = viewChatBtn;
+    if (!card || !profileImg || !button) return;
+
+    const windowH = window.innerHeight;
+    const imgHeight = profileImg.offsetHeight;
+    const buttonHeight = button.offsetHeight;
+    const paddingTop = 20; // 이미지 위쪽 여백
+    const paddingBottom = 16; // 버튼 아래 여백
+
+    card.style.height = `${windowH - imgHeight - buttonHeight - paddingTop - paddingBottom}px`;
+  }
+
+  window.addEventListener("load", adjustMemberCardHeight);
+  window.addEventListener("resize", adjustMemberCardHeight);
 }
 
 /* 초기화 */
