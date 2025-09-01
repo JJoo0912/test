@@ -1,43 +1,51 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Xdinary Heroes Bubble</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
 <script defer src="app.js"></script>
 </head>
 <body class="app-bg">
-<div id="app" class="app-frame app-frame--profile">
-  <!-- 닫기 버튼 -->
-  <button class="exit-button" onclick="history.back()">✕</button>
+  <div id="app" class="app-frame app-frame--profile">
 
-  <!-- 배경 이미지 영역 -->
-  <div id="memberBgWrap" class="member-bg-wrap">
-    <img id="memberBg" class="member-bg" alt="">
+    <!-- 배경 이미지 -->
+    <div class="member-bg-wrap">
+      <img id="memberBg" class="member-bg" src="" alt="Background">
+    </div>
+
+    <!-- 프로필 카드 -->
+    <div class="member-profile-card">
+      <!-- 동그란 프로필 이미지 -->
+      <img id="memberProfile" class="member-profile-img" src="" alt="Profile">
+
+      <!-- 이름 & 상태 메시지 -->
+      <h2 id="memberDisplayName" class="member-name">멤버 이름</h2>
+      <p class="member-status">상태 메시지 또는 간단 설명</p>
+
+      <!-- 채팅 버튼 -->
+      <button id="viewChatBtn" class="primary-btn wide-btn">채팅 보기</button>
+    </div>
+
+    <!-- 미디어 팝업 -->
+    <div id="mediaPopup" class="hidden">
+      <div class="media-popup-card">
+        <button id="mediaPopupClose" class="media-popup-close" onclick="closeMediaPopup()">×</button>
+        <div id="mediaPopupContent" class="media-popup-content"></div>
+        <button id="mediaPopupDownload" class="media-popup-download"></button>
+      </div>
+    </div>
+
+    <!-- 닉네임 모달 (필요시) -->
+    <div id="nickModal" class="modal hidden">
+      <div class="modal-card">
+        <h3>닉네임을 입력해주세요</h3>
+        <input type="text" id="nickInput" placeholder="닉네임 입력" style="width:80%; padding:8px; margin:12px 0; border-radius:12px; border:1px solid #ccc;">
+        <button class="primary-btn wide-btn" onclick="saveNickname()">확인</button>
+      </div>
+    </div>
+
   </div>
-
-  <!-- 하단 흰색 영역 -->
-  <div class="member-bottom-card">
-    <h2 id="memberDisplayName" class="member-name"></h2>
-    <p id="memberStatus" class="member-status">상태 메시지를 입력하세요</p>
-    <button id="viewChatBtn" class="primary-btn wide-btn">전체 채팅 보기</button>
-  </div>
-
-  <!-- 프로필 이미지 버튼 (경계선 위치) -->
-  <button id="memberProfileBtn" class="member-profile-btn">
-    <img id="memberProfile" class="member-profile-img" alt="">
-  </button>
-
-</div>
-
-<!-- 이미지/동영상 팝업 -->
-<div id="mediaPopup" class="hidden">
-  <div class="media-popup-card">
-    <div id="mediaPopupContent" class="media-popup-content"></div>
-    <button id="mediaPopupClose" class="media-popup-close" onclick="closeMediaPopup()">✕</button>
-    <button id="mediaPopupDownload" class="media-popup-download"></button>
-  </div>
-</div>
 </body>
 </html>
