@@ -20,35 +20,33 @@
   --app-max-w: 420px;
 }
 
-/* 화면 고정 및 스크롤 구조 */
-html, body {
-  width: 1179px;
-  height: 2556px;
-  overflow-y: auto; /* 세로 스크롤 가능 */
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
+html,body {
+  margin:0; padding:0;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   background:#000;
   color:var(--text);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .app-bg {
-  display:flex;
-  justify-content:center;
-  width: 1179px;
-  height: 2556px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .app-frame {
+  /* 기본 스타일 유지, JS에서 비율 자동 조정 */
   background:var(--bg);
-  width:100%;
-  max-width:var(--app-max-w);
-  min-height:100vh;
   display:flex;
   flex-direction:column;
-  position:relative;
-  margin:0 auto;
+  position: relative;
   overflow: hidden;
 }
 
@@ -296,16 +294,14 @@ html, body {
   color:var(--text-strong);
   display: inline-block;
   background: none; 
-  padding: 0; 
+  padding: 0;
 }
 
-/* 텍스트 메시지 전용 스타일 (말풍선 배경색 다시 적용) */
 .chat-msg:not(:has(img)):not(:has(video)) {
   background:var(--bg-artist);
   padding:10px 14px;
 }
 
-/* 채팅 메타 정보 (시간) */
 .chat-meta {
   font-size:11px;
   color:var(--text-light);
@@ -313,7 +309,6 @@ html, body {
   margin-left: 4px;
 }
 
-/* 이미지 및 동영상 메시지 스타일 */
 .chat-media-image,
 .chat-media-video {
   max-width: 250px;
@@ -328,7 +323,6 @@ html, body {
   height: auto;
 }
 
-/* 날짜 구분선 */
 .chat-date-sep {
   align-self:center;
   margin:16px 0 8px;
@@ -339,12 +333,10 @@ html, body {
   border-radius:16px;
 }
 
-/* 공통 숨김 클래스 */
 .hidden {
   display: none !important;
 }
 
-/* 모달 (닉네임 설정 등) */
 .modal {
   position:fixed;
   inset:0;
