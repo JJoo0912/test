@@ -89,20 +89,80 @@ async function loadChat(memberId) {
     if (msgObj.type === "text") msgContent.textContent = msgObj.text;
     else if (msgObj.type === "image") {
       const img = document.createElement("img");
-      img.src = msgObj.media; img.className="chat-media-image"; msgContent.appendChild(img);
+      img.src = msgObj.media; 
+      img.className="chat-media-image"; 
+      msgContent.appendChild(img);
+
+      // 이미지 클릭 이벤트
+      img.addEventListener("click", () => openMediaPopup(img.src, "image"));
     }
     else if (msgObj.type === "video" || msgObj.type === "vedio") {
       const vid = document.createElement("video");
-      vid.src = msgObj.media; vid.className="chat-media-video"; vid.controls=true;
+      vid.src = msgObj.media; 
+      vid.className="chat-media-video"; 
+      vid.controls=true;
       msgContent.appendChild(vid);
+
+      // 동영상 클릭 이벤트
+      vid.addEventListener("click", () => openMediaPopup(vid.src, "video"));
     }
 
     const meta = document.createElement("div");
-    meta.className = "chat-meta"; meta.textContent = msgObj.time || "";
-    msgWrap.appendChild(msgContent); msgWrap.appendChild(meta);
+    meta.className = "chat-meta"; 
+    meta.textContent = msgObj.time || "";
+    msgWrap.appendChild(msgContent); 
+    msgWrap.appendChild(meta);
     chatScroll.appendChild(msgWrap);
   }
   chatScroll.scrollTop = chatScroll.scrollHeight;
+}
+
+/* =========================
+   이미지/동영상 팝업 기능
+========================= */
+function openMediaPopup(src, type) {
+  const popup = document.getElementById("mediaPopup");
+  const content = document.getElementById("mediaPopupContent");
+  const downloadBtn = document.getElementById("mediaPopupDownload");
+  content.innerHTML = "";
+
+  if (type === "image") {
+    const img = document.createElement("img");
+    img.src = src;
+    img.style.maxWidth = "90vw";
+    img.style.maxHeight = "80vh";
+    img.style.borderRadius = "16px";
+    content.appendChild(img);
+  } else if (type === "video") {
+    const vid = document.createElement("video");
+    vid.src = src;
+    vid.controls = true;
+    vid.style.maxWidth = "90vw";
+    vid.style.maxHeight = "80vh";
+    vid.style.borderRadius = "16px";
+    content.appendChild(vid);
+  }
+
+  // 다운로드 버튼
+  downloadBtn.onclick = () => {
+    const a = document.createElement("a");
+    a.href = src;
+    a.download = src.split("/").pop();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  popup.classList.remove("hidden");
+}
+
+function closeMediaPopup() {
+  const popup = document.getElementById("mediaPopup");
+  const content = document.getElementById("mediaPopupContent");
+  const downloadBtn = document.getElementById("mediaPopupDownload");
+  popup.classList.add("hidden");
+  content.innerHTML = "";
+  downloadBtn.onclick = null;
 }
 
 /* 채팅 페이지 초기화 */
