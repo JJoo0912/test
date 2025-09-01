@@ -374,8 +374,8 @@ input[type="datetime-local"], input[type="file"] {
 
 .media-popup-card {
   position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 70vw;
+  max-height: 70vh;
   background: #fff;
   border-radius: var(--radius-md);
   overflow: hidden;
