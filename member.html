@@ -2,21 +2,41 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>Xdinary Heroes bubble</title>
+<title>Xdinary Heroes Bubble</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
 <script defer src="app.js"></script>
 </head>
 <body class="app-bg">
 <div id="app" class="app-frame app-frame--profile">
+  <!-- 닫기 버튼 -->
   <button class="exit-button" onclick="history.back()">✕</button>
+
+  <!-- 배경 이미지 영역 -->
   <div id="memberBgWrap" class="member-bg-wrap">
     <img id="memberBg" class="member-bg" alt="">
   </div>
-  <div class="member-profile-card">
-    <img id="memberProfile" class="member-profile-img" alt="">
+
+  <!-- 하단 흰색 영역 -->
+  <div class="member-bottom-card">
     <h2 id="memberDisplayName" class="member-name"></h2>
+    <p id="memberStatus" class="member-status">상태 메시지를 입력하세요</p>
     <button id="viewChatBtn" class="primary-btn wide-btn">전체 채팅 보기</button>
+  </div>
+
+  <!-- 프로필 이미지 버튼 (경계선 위치) -->
+  <button id="memberProfileBtn" class="member-profile-btn">
+    <img id="memberProfile" class="member-profile-img" alt="">
+  </button>
+
+</div>
+
+<!-- 이미지/동영상 팝업 -->
+<div id="mediaPopup" class="hidden">
+  <div class="media-popup-card">
+    <div id="mediaPopupContent" class="media-popup-content"></div>
+    <button id="mediaPopupClose" class="media-popup-close" onclick="closeMediaPopup()">✕</button>
+    <button id="mediaPopupDownload" class="media-popup-download"></button>
   </div>
 </div>
 </body>
