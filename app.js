@@ -222,19 +222,39 @@ window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("chatScroll")) initChatPage();
   if (document.getElementById("memberDisplayName")) initMemberPage();
 
-  // 탭바 버튼 이벤트
-  const membersBtn = document.getElementById("tabMembersBtn");
-  const settingBtn = document.getElementById("tabSettingBtn");
+// 탭바 버튼 이벤트 및 활성화 처리
+const membersBtn = document.getElementById("tabMembersBtn");
+const settingBtn = document.getElementById("tabSettingBtn");
 
-  if (membersBtn) {
+// 현재 페이지 확인
+const currentPage = window.location.pathname.split("/").pop(); // index.html 또는 setting.html
+
+if (membersBtn) {
+  if (currentPage === "index.html" || currentPage === "") {
+    // index 페이지에서는 이미 활성화된 상태, 클릭 막기
+    membersBtn.classList.add("tab-btn--active");
+    membersBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // 클릭 막음
+    });
+  } else {
+    // setting.html에서는 클릭 시 index로 이동
     membersBtn.addEventListener("click", () => {
       window.location.href = "index.html";
     });
   }
+}
 
-  if (settingBtn) {
+if (settingBtn) {
+  if (currentPage === "setting.html") {
+    // setting 페이지에서는 활성화
+    settingBtn.classList.add("tab-btn--active");
+    settingBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // 클릭 막음
+    });
+  } else {
+    // index.html에서는 클릭 시 setting으로 이동
     settingBtn.addEventListener("click", () => {
       window.location.href = "setting.html";
     });
   }
-});
+}
