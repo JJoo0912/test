@@ -136,74 +136,61 @@ html, body {
 /* 멤버 프로필 페이지 */
 .app-frame--profile { overflow:hidden; }
 
-
-
 /* =========================
-   멤버 프로필 페이지 최적화 (member.html)
+   멤버 프로필 카드 높이 조정 (member.html)
 ========================= */
-
-/* 배경 이미지 */
-.member-bg-wrap { position:absolute; inset:0; overflow:hidden; z-index:0; }
-.member-bg {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:blur(8px) brightness(.7);
-}
-
-/* 프로필 카드 + 하단 흰색 영역 */
 .member-profile-card {
-  position:absolute;
-  bottom:0;
-  width:100%;
-  background:#fff;
-  border-top-left-radius:24px;
-  border-top-right-radius:24px;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
-  text-align:center;
-  padding-top:60px; /* 프로필 이미지 겹치지 않도록 여유 공간 */
-  z-index:10;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 25vh; /* 화면 높이 1/4 */
+  background: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+  text-align: center;
+  padding-top: 60px; /* 프로필 이미지와 겹치지 않도록 여유 공간 */
+  z-index: 10;
 }
 
 /* 동그란 프로필 이미지 */
 .member-profile-img {
-  width:120px;
-  height:120px;
-  object-fit:cover;
-  border-radius:50%;
-  border:4px solid #4D8DFF;
-  position:absolute;
-  top:-60px; /* 카드 위로 겹치도록 */
-  left:50%;
-  transform:translateX(-50%);
-  background:#fff;
-  cursor:pointer;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #4D8DFF;
+  position: absolute;
+  top: -60px; /* 카드 위로 겹치도록 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  cursor: pointer;
 }
 
 /* 멤버 이름 & 상태 메시지 */
 .member-name {
-  margin:0;
-  font-size:20px;
-  font-weight:600;
-  margin-bottom:8px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 .member-status {
-  font-size:14px;
-  color:#888;
-  margin-bottom:16px;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 16px;
 }
 
 /* 전체채팅보기 버튼 */
 #wrapperViewChatBtn {
-  position:absolute;
-  bottom:16px; /* 카드 끝에서 조금 위 */
-  width:100%;
-  text-align:center;
+  position: absolute;
+  bottom: 16px;
+  width: 100%;
+  text-align: center;
 }
 #wrapperViewChatBtn .primary-btn {
-  width:90%;
+  width: 90%;
 }
-
 /* 닫기 버튼 (우측 상단) */
 .exit-button {
   position: absolute;
