@@ -169,7 +169,9 @@ function openChatIfPending() {
   if (memberId) loadChat(memberId);
 }
 
-/* 멤버 프로필 페이지 초기화 */
+/* =========================
+   멤버 프로필 페이지 초기화 + 이미지 팝업 기능
+========================= */
 function initMemberPage() {
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get("member");
@@ -178,9 +180,11 @@ function initMemberPage() {
   if (!member) return;
 
   // 프로필 정보
+  const profileImg = document.getElementById("memberProfile");
+  const bgImg = document.getElementById("memberBg");
   document.getElementById("memberDisplayName").textContent = member.display;
-  document.getElementById("memberProfile").src = `images/${member.id}_profile.jpg`;
-  document.getElementById("memberBg").src = `images/${member.id}_background.jpg`;
+  profileImg.src = `images/${member.id}_profile.jpg`;
+  bgImg.src = `images/${member.id}_background.jpg`;
 
   // 전체 채팅 보기 버튼
   document.getElementById("viewChatBtn").addEventListener("click", () => {
@@ -191,13 +195,85 @@ function initMemberPage() {
   const exitBtn = document.createElement("button");
   exitBtn.className = "exit-button";
   exitBtn.textContent = "✕";
-  exitBtn.addEventListener("click", () => {
-    window.history.back();
-  });
+  exitBtn.addEventListener("click", () => window.history.back());
   document.getElementById("app").appendChild(exitBtn);
+
+  // =========================
+  // 팝업 기능
+  // =========================
+  const popup = document.getElementById("mediaPopup");
+  const content = document.getElementById("mediaPopupContent");
+  const downloadBtn = document.getElementById("mediaPopupDownload");
+
+  // 프로필 이미지 클릭 시 팝업
+  profileImg.addEventListener("click", (e) => {
+    e.stopPropagation();
+    openMediaPopup(profileImg.src, "image");
+  });
+
+  // 배경 이미지 클릭 시 팝업 (카드 및 프로필 제외 영역)
+  bgImg.addEventListener("click", (e) => {
+    e.stopPropagation();
+    openMediaPopup(bgImg.src, "image");
+  });
+
+  // 팝업 외부 클릭 시 닫기
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) closeMediaPopup();
+  });
 }
 
-/* 초기화 */
+/* =========================
+   이미지/동영상 팝업 기능
+========================= */
+function openMediaPopup(src, type) {
+  const popup = document.getElementById("mediaPopup");
+  const content = document.getElementById("mediaPopupContent");
+  const downloadBtn = document.getElementById("mediaPopupDownload");
+  content.innerHTML = "";
+
+  if (type === "image") {
+    const img = document.createElement("img");
+    img.src = src;
+    content.appendChild(img);
+  } else if (type === "video") {
+    const vid = document.createElement("video");
+    vid.src = src;
+    vid.controls = true;
+    content.appendChild(vid);
+  }
+
+  // 다운로드 버튼
+  downloadBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
+      <path d="M5 18h14v-2H5v2zm7-2l-7-7h4V4h6v5h4l-7 7z"/>
+    </svg>
+  `;
+  downloadBtn.onclick = () => {
+    const a = document.createElement("a");
+    a.href = src;
+    a.download = src.split("/").pop();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  popup.classList.remove("hidden");
+}
+
+function closeMediaPopup() {
+  const popup = document.getElementById("mediaPopup");
+  const content = document.getElementById("mediaPopupContent");
+  const downloadBtn = document.getElementById("mediaPopupDownload");
+  popup.classList.add("hidden");
+  content.innerHTML = "";
+  downloadBtn.innerHTML = "";
+  downloadBtn.onclick = null;
+}
+
+/* =========================
+   초기화
+========================= */
 window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("archiveList")) renderArchive();
   if (document.getElementById("chatScroll")) initChatPage();
