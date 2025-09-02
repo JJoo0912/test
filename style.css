@@ -143,7 +143,7 @@ html, body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: calc(25vh+30px); /* 화면 높이 1/4 */
+  height: calc(25vh+45px); /* 화면 높이 1/4 */
   background: #fff;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
