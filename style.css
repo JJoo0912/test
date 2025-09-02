@@ -16,7 +16,7 @@
   --radius-sm: 12px;
   --shadow-card: 0 4px 20px rgba(0,0,0,.08);
   --header-h: 56px;
-  --tabbar-h: 40px; /* 탭바 높이 */
+  --tabbar-h: 56px; /* 상단 헤더 높이와 동일 */
   --app-max-w: 420px; /* 최대 가로 폭 */
 }
 
@@ -85,6 +85,7 @@ html, body {
   padding:8px 0 calc(var(--tabbar-h) + 8px); /* 탭바 때문에 하단 패딩 확보 */
 }
 
+/* 아카이브 행 */
 .archive-row {
   display:flex;
   align-items:center;
@@ -113,37 +114,52 @@ html, body {
 .archive-row-status { margin-left:auto; font-size:12px; color:var(--text-light); }
 
 /* =========================
-   하단 탭바 (index.html 기준)
+   하단 탭바
 ========================= */
 .app-tabbar {
-  position: fixed;      /* 화면 제일 하단 고정 */
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: var(--header-h);  /* 상단 헤더 높이와 동일 */
+  height: var(--tabbar-h);
   display: flex;
   background: var(--bg);
-  border-top: 1px solid #e0e0e0;
+  border-top-left-radius: var(--radius-sm);
+  border-top-right-radius: var(--radius-sm);
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.08); /* 위쪽 그림자 */
   z-index: 20;
+  overflow: hidden;
 }
 
+/* 탭 버튼 (Members / Setting) */
 .tab-btn {
-  flex: 1; /* 좌우 동일 비율 */
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center; /* 글씨 중앙 정렬 */
-  background: none;
+  justify-content: center;
+  background: var(--bg);
   border: none;
   font-size: 14px;
   color: var(--text-strong);
   cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* 멤버 프로필 페이지 */
-.app-frame--profile { overflow:hidden; }
+.tab-btn:hover {
+  background: rgba(77,141,255,0.08);
+}
+
+.tab-btn:active {
+  background: rgba(77,141,255,0.15);
+}
+
+/* 버튼 구분선 */
+.tab-btn + .tab-btn {
+  border-left: 1px solid rgba(0,0,0,0.1); /* 좌우 버튼 사이 구분선 */
+}
 
 /* =========================
-   멤버 프로필 카드 높이 조정 (member.html)
+   멤버 프로필 카드
 ========================= */
 .member-profile-card {
   position: absolute;
@@ -159,7 +175,6 @@ html, body {
   z-index: 10;
 }
 
-/* 동그란 프로필 이미지 */
 .member-profile-img {
   width: 120px;
   height: 120px;
@@ -174,7 +189,6 @@ html, body {
   cursor: pointer;
 }
 
-/* 멤버 배경 이미지 */
 .member-bg-wrap {
   width: 100%;
   height: calc(75vh + 10px);
@@ -193,13 +207,13 @@ html, body {
   display: block;
 }
 
-/* 멤버 이름 & 상태 메시지 */
 .member-name {
   margin: 0;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 8px;
 }
+
 .member-status {
   font-size: 14px;
   color: #888;
@@ -213,22 +227,9 @@ html, body {
   width: 100%;
   text-align: center;
 }
-#wrapperViewChatBtn .primary-btn { width: 90%; }
-
-/* 닫기 버튼 (우측 상단) */
-.exit-button {
-  position: absolute;
-  top:16px;
-  right:16px;
-  font-size:28px;
-  background:none;
-  border:none;
-  color:#111;
-  cursor:pointer;
-  z-index:100;
-  transition:color 0.2s;
+#wrapperViewChatBtn .primary-btn {
+  width: 90%;
 }
-.exit-button:hover { color:#ff5b5b; }
 
 /* 버튼 스타일 */
 .primary-btn {
@@ -241,11 +242,16 @@ html, body {
   cursor:pointer;
   transition:background 0.2s;
 }
+
 .primary-btn:active { background:var(--accent-dark); }
+
 .wide-btn { display:block; width:90%; margin:0 auto; }
 
-/* 채팅 페이지 */
+/* =========================
+   채팅 페이지
+========================= */
 .app-frame--chat { background:var(--bg-chat); }
+
 .chat-header {
   position:sticky;
   top:0;
@@ -257,7 +263,9 @@ html, body {
   border-bottom:1px solid #e0e0e0;
   z-index:5;
 }
+
 .chat-header-title { margin:0; font-size:18px; font-weight:600; }
+
 .chat-scroll {
   flex:1;
   overflow-y:auto;
@@ -268,8 +276,11 @@ html, body {
   justify-content:flex-end;
 }
 
-/* 채팅 메시지 */
+/* =========================
+   채팅 메시지
+========================= */
 .chat-msg-wrap { display:flex; align-items:flex-end; max-width:80%; margin-bottom:8px; }
+
 .chat-msg {
   padding:10px 14px;
   border-radius:var(--radius-lg);
@@ -280,7 +291,15 @@ html, body {
   color:var(--text-strong);
   display:inline-block;
 }
-.chat-meta { font-size:11px; color:var(--text-light); white-space:nowrap; margin-left:4px; }
+
+.chat-meta {
+  font-size:11px;
+  color:var(--text-light);
+  white-space:nowrap;
+  margin-left:4px;
+}
+
+/* 이미지/동영상 메시지 */
 .chat-media-image,
 .chat-media-video {
   max-width: 250px;
@@ -289,6 +308,7 @@ html, body {
   object-fit: cover;
   display: block;
 }
+
 .chat-media-video { width:100%; height:auto; }
 
 /* 공통 숨김 */
@@ -304,6 +324,7 @@ html, body {
   justify-content:center;
   z-index:20;
 }
+
 .modal-card {
   width:80%;
   max-width:300px;
@@ -315,7 +336,7 @@ html, body {
 }
 
 /* =========================
-   이미지/동영상 팝업 모달 (member.html)
+   이미지/동영상 팝업 모달
 ========================= */
 #mediaPopup {
   position: absolute;
@@ -326,6 +347,7 @@ html, body {
   background: rgba(0,0,0,0.6);
   z-index: 50;
 }
+
 .media-popup-card {
   position: relative;
   width: 90%;
@@ -343,6 +365,7 @@ html, body {
   padding: 0;
   box-shadow: none;
 }
+
 .media-popup-content {
   width: 100%;
   height: auto;
@@ -350,6 +373,7 @@ html, body {
   align-items: center;
   justify-content: center;
 }
+
 .media-popup-content img,
 .media-popup-content video {
   width: 100%;
@@ -357,6 +381,7 @@ html, body {
   border-radius: 0;
   object-fit: contain;
 }
+
 .media-popup-close,
 .media-popup-download {
   position: absolute;
@@ -373,7 +398,9 @@ html, body {
   align-items: center;
   justify-content: center;
 }
+
 .media-popup-close:hover,
 .media-popup-download:hover { background: rgba(0,0,0,0.6); }
+
 .media-popup-close { top: 8px; right: 8px; }
 .media-popup-download { bottom: 8px; right: 8px; }
