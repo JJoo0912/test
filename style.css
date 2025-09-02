@@ -161,7 +161,7 @@ html, body {
   border-radius: 50%;
   border: 4px solid #4D8DFF;
   position: absolute;
-  top: -125px; /* 카드 위로 겹치도록 */
+  top: -100px; /* 카드 위로 겹치도록 */
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
