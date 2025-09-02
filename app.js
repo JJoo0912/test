@@ -182,15 +182,20 @@ function initMemberPage() {
   // 이름
   document.getElementById("memberDisplayName").textContent = member.display;
   // 상태 메시지
-  document.querySelector(".member-status").textContent = member.status;
+  document.getElementById("memberStatus").textContent = member.status;
 
   const profileImg = document.getElementById("memberProfile");
   const bgImg = document.getElementById("memberBg");
 
+  // 이미지 경로 설정
   profileImg.src = `images/${member.id}_profile.jpg`;
   bgImg.src = `images/${member.id}_background.jpg`;
 
-  // 클릭 + 터치 이벤트 모두 등록
+  // 이미지 로드 실패 대비
+  profileImg.onerror = () => profileImg.src = "images/default_profile.jpg";
+  bgImg.onerror = () => bgImg.src = "images/default_background.jpg";
+
+  // 클릭 이벤트
   function openProfilePopup() { openMediaPopup(profileImg.src, "image"); }
   function openBgPopup() { openMediaPopup(bgImg.src, "image"); }
 
@@ -211,7 +216,6 @@ function initMemberPage() {
   exitBtn.addEventListener("click", () => window.history.back());
   document.getElementById("app").appendChild(exitBtn);
 }
-
 /* 초기화 */
 window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("archiveList")) renderArchive();
