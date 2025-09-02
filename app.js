@@ -221,4 +221,20 @@ window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("archiveList")) renderArchive();
   if (document.getElementById("chatScroll")) initChatPage();
   if (document.getElementById("memberDisplayName")) initMemberPage();
+
+  // 탭바 버튼 이벤트
+  const membersBtn = document.getElementById("tabMembersBtn");
+  const settingBtn = document.getElementById("tabSettingBtn");
+
+  if (membersBtn) {
+    membersBtn.addEventListener("click", () => {
+      window.location.href = "member.html";
+    });
+  }
+
+  if (settingBtn) {
+    settingBtn.addEventListener("click", () => {
+      window.location.href = "setting.html";
+    });
+  }
 });
