@@ -16,7 +16,7 @@
   --radius-sm: 12px;
   --shadow-card: 0 4px 20px rgba(0,0,0,.08);
   --header-h: 56px;
-  --tabbar-h: 40px; /* 탭바 높이 수정 */
+  --tabbar-h: 40px; /* 탭바 높이 */
   --app-max-w: 420px; /* 최대 가로 폭 */
 }
 
@@ -112,32 +112,30 @@ html, body {
 
 .archive-row-status { margin-left:auto; font-size:12px; color:var(--text-light); }
 
-/* 하단 탭바 */
+/* =========================
+   하단 탭바 (index.html 기준)
+========================= */
 .app-tabbar {
   position: fixed;      /* 화면 제일 하단 고정 */
   bottom: 0;
   left: 0;
   width: 100%;
-  height: var(--header-h);  /* 상단 헤더와 동일 높이 */
+  height: var(--header-h);  /* 상단 헤더 높이와 동일 */
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   background: var(--bg);
   border-top: 1px solid #e0e0e0;
   z-index: 20;
 }
 
-/* 탭 버튼 (Members / Setting 공용) */
 .tab-btn {
   flex: 1; /* 좌우 동일 비율 */
-  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* 글씨 중앙 정렬 */
   background: none;
   border: none;
   font-size: 14px;
-  color: var(--text-strong); /* 기본 검정 */
+  color: var(--text-strong);
   cursor: pointer;
 }
 
@@ -151,13 +149,13 @@ html, body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: calc(25vh+45px); /* 화면 높이 1/4 */
+  height: calc(25vh+45px);
   background: #fff;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   box-shadow: 0 4px 20px rgba(0,0,0,.08);
   text-align: center;
-  padding-top: 60px; /* 프로필 이미지와 겹치지 않도록 여유 공간 */
+  padding-top: 60px;
   z-index: 10;
 }
 
@@ -169,17 +167,17 @@ html, body {
   border-radius: 50%;
   border: 4px solid #4D8DFF;
   position: absolute;
-  top: -90px; /* 카드 위로 겹치도록 */
+  top: -90px;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
   cursor: pointer;
 }
 
-/* 멤버 프로필 배경 이미지 */
+/* 멤버 배경 이미지 */
 .member-bg-wrap {
   width: 100%;
-  height: calc(75vh + 10px);  
+  height: calc(75vh + 10px);
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -215,9 +213,7 @@ html, body {
   width: 100%;
   text-align: center;
 }
-#wrapperViewChatBtn .primary-btn {
-  width: 90%;
-}
+#wrapperViewChatBtn .primary-btn { width: 90%; }
 
 /* 닫기 버튼 (우측 상단) */
 .exit-button {
@@ -245,14 +241,11 @@ html, body {
   cursor:pointer;
   transition:background 0.2s;
 }
-
 .primary-btn:active { background:var(--accent-dark); }
-
 .wide-btn { display:block; width:90%; margin:0 auto; }
 
 /* 채팅 페이지 */
 .app-frame--chat { background:var(--bg-chat); }
-
 .chat-header {
   position:sticky;
   top:0;
@@ -264,9 +257,7 @@ html, body {
   border-bottom:1px solid #e0e0e0;
   z-index:5;
 }
-
 .chat-header-title { margin:0; font-size:18px; font-weight:600; }
-
 .chat-scroll {
   flex:1;
   overflow-y:auto;
@@ -279,7 +270,6 @@ html, body {
 
 /* 채팅 메시지 */
 .chat-msg-wrap { display:flex; align-items:flex-end; max-width:80%; margin-bottom:8px; }
-
 .chat-msg {
   padding:10px 14px;
   border-radius:var(--radius-lg);
@@ -290,16 +280,7 @@ html, body {
   color:var(--text-strong);
   display:inline-block;
 }
-
-/* 메타 정보 */
-.chat-meta {
-  font-size:11px;
-  color:var(--text-light);
-  white-space:nowrap;
-  margin-left:4px;
-}
-
-/* 이미지 및 동영상 메시지 */
+.chat-meta { font-size:11px; color:var(--text-light); white-space:nowrap; margin-left:4px; }
 .chat-media-image,
 .chat-media-video {
   max-width: 250px;
@@ -308,7 +289,6 @@ html, body {
   object-fit: cover;
   display: block;
 }
-
 .chat-media-video { width:100%; height:auto; }
 
 /* 공통 숨김 */
@@ -324,7 +304,6 @@ html, body {
   justify-content:center;
   z-index:20;
 }
-
 .modal-card {
   width:80%;
   max-width:300px;
@@ -336,10 +315,10 @@ html, body {
 }
 
 /* =========================
-   이미지/동영상 팝업 모달 (member.html 수정 반영)
+   이미지/동영상 팝업 모달 (member.html)
 ========================= */
 #mediaPopup {
-  position: absolute; /* app-frame 기준 */
+  position: absolute;
   inset:0;
   display:flex;
   align-items:center;
@@ -347,10 +326,9 @@ html, body {
   background: rgba(0,0,0,0.6);
   z-index: 50;
 }
-
 .media-popup-card {
   position: relative;
-  width: 90%; /* 가로폭 조금 줄임 */
+  width: 90%;
   max-width: 320px;
   height: auto;
   max-height: 80%;
@@ -365,7 +343,6 @@ html, body {
   padding: 0;
   box-shadow: none;
 }
-
 .media-popup-content {
   width: 100%;
   height: auto;
@@ -373,7 +350,6 @@ html, body {
   align-items: center;
   justify-content: center;
 }
-
 .media-popup-content img,
 .media-popup-content video {
   width: 100%;
@@ -381,7 +357,6 @@ html, body {
   border-radius: 0;
   object-fit: contain;
 }
-
 .media-popup-close,
 .media-popup-download {
   position: absolute;
@@ -398,12 +373,7 @@ html, body {
   align-items: center;
   justify-content: center;
 }
-
 .media-popup-close:hover,
-.media-popup-download:hover {
-  background: rgba(0,0,0,0.6);
-}
-
+.media-popup-download:hover { background: rgba(0,0,0,0.6); }
 .media-popup-close { top: 8px; right: 8px; }
-
 .media-popup-download { bottom: 8px; right: 8px; }
