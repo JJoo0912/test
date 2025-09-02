@@ -110,37 +110,28 @@ html, body {
 
 /* 앱 하단 탭바 */
 .app-tabbar {
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: var(--tabbar-h);
-  border-top: 1px solid #e0e0e0;
-  background: var(--bg);
-  z-index: 10;
+  position:sticky;
+  bottom:0;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  height:var(--tabbar-h);
+  border-top:1px solid #e0e0e0;
+  background:var(--bg);
+  z-index:10;
 }
 
-/* 탭 버튼 (Members, Setting 공용) */
 .tab-btn {
-  flex: 1;                  /* 동일한 비율로 나눔 */
-  height: 100%;
-  background: none;
-  border: none;
-  font-size: 14px;
-  color: var(--text-light);
-  cursor: pointer;
-  transition: color 0.2s;
+  flex:1;
+  height:100%;
+  background:none;
+  border:none;
+  font-size:14px;
+  color:var(--text-light);
+  cursor:pointer;
 }
 
-.tab-btn:hover {
-  color: var(--accent);
-}
-
-.tab-btn--active {
-  color: var(--accent);
-  font-weight: 600;
-}
+.tab-btn--active { color:var(--accent); font-weight:600; }
 
 /* 멤버 프로필 페이지 */
 .app-frame--profile { overflow:hidden; }
