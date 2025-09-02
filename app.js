@@ -1,10 +1,10 @@
 const MEMBER_LIST = [
-  { id: "Gunil", display: "건일" },
-  { id: "Jeongsu", display: "정수" },
-  { id: "Gaon", display: "가온" },
-  { id: "Ode", display: "오드" },
-  { id: "Junhan", display: "준한" },
-  { id: "Jooyeon", display: "주연" }
+  { id: "Gunil", display: "건일", status: "밝고 에너제틱한 리더" },
+  { id: "Jeongsu", display: "정수", status: "차분하고 섬세한 멤버" },
+  { id: "Gaon", display: "가온", status: "유쾌한 분위기 메이커" },
+  { id: "Ode", display: "오드", status: "감성적이고 다정함" },
+  { id: "Junhan", display: "준한", status: "듬직하고 책임감 있음" },
+  { id: "Jooyeon", display: "주연", status: "개성 넘치는 자유로운 영혼" }
 ];
 
 /* 화면 비율 9:16 유지 */
@@ -179,6 +179,11 @@ function initMemberPage() {
   const member = MEMBER_LIST.find(m => m.id === memberId);
   if (!member) return;
 
+  // 이름
+  document.getElementById("memberDisplayName").textContent = member.display;
+  // 상태 메시지
+  document.querySelector(".member-status").textContent = member.status;
+
   const profileImg = document.getElementById("memberProfile");
   const bgImg = document.getElementById("memberBg");
 
@@ -191,7 +196,6 @@ function initMemberPage() {
 
   profileImg.addEventListener("click", openProfilePopup);
   profileImg.addEventListener("touchstart", openProfilePopup);
-
   bgImg.addEventListener("click", openBgPopup);
   bgImg.addEventListener("touchstart", openBgPopup);
 
