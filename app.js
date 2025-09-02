@@ -228,7 +228,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   if (membersBtn) {
     membersBtn.addEventListener("click", () => {
-      window.location.href = "member.html";
+      window.location.href = "index.html
     });
   }
 
