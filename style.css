@@ -128,12 +128,12 @@ html, body {
 }
 
 /* 좌측/우측 위치 지정 */
-.app-tabbar-left { left: 0; }
-.app-tabbar-right { right: 0; }
+.app-tabbar-left { left: 0vh; }
+.app-tabbar-right { right: 0vh; }
 
 /* 버튼 */
 .tab-btn {
-  width: 100%;
+  width: 100vh;
   height: 100%;
   background: none;
   border: none;
