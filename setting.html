@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Setting | Fan Bubble</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script> <!-- JS 연결 -->
 </head>
 <body class="app-bg">
   <div id="app" class="app-frame">
@@ -15,6 +16,16 @@
     <main class="app-main">
       <p>여기는 Setting 페이지입니다. 🚀</p>
     </main>
+
+    <!-- 좌측 탭바 -->
+    <nav class="app-tabbar-left">
+      <button id="tabMembersBtn" class="tab-btn">Members</button>
+    </nav>
+
+    <!-- 우측 탭바 -->
+    <nav class="app-tabbar-right">
+      <button id="tabSettingBtn" class="tab-btn tab-btn--active">Setting</button>
+    </nav>
 
     <footer class="app-footer">
       <p class="footer-text">© Fan Bubble</p>
