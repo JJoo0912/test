@@ -169,22 +169,23 @@ html, body {
 }
 
 /* 멤버 프로필 배경 이미지 */
+/* 멤버 프로필 배경 이미지 */
 .member-bg-wrap {
-  width: 100%;                  /* 화면 가로 */
-  max-height: calc(75vh + 10px);/* 최대 높이 */
+  width: 100%;
+  height: calc(75vh + 10px);  /* 부모 높이 지정 */
   overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 0;                /* 다른 요소에 가려지지 않도록 */
 }
 
 .member-bg {
-  width: 100%;                  /* 화면 가로 기준 */
-  height: auto;                 /* 원본 비율 유지 */
-  max-height: 100%;             /* 부모 높이 넘지 않도록 */
-  object-fit: contain;          /* 원본 비율 유지 */
-  object-position: top center;  /* 위쪽부터 보여주기 */
+  width: 100%;               /* 화면 가로에 맞춤 */
+  height: auto;              /* 원본 비율 유지 */
+  max-height: 100%;          /* 부모 높이 넘지 않도록 */
+  object-fit: cover;         /* 화면 꽉 채우기 */
+  object-position: top center; /* 위쪽부터 보여주기 */
   display: block;
 }
 
