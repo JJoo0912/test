@@ -87,6 +87,7 @@ async function loadChat(memberId) {
       img.className="chat-media-image"; 
       msgContent.appendChild(img);
       img.addEventListener("click", () => openMediaPopup(img.src, "image"));
+      img.addEventListener("touchstart", () => openMediaPopup(img.src, "image"));
     }
     else if (msgObj.type === "video" || msgObj.type === "vedio") {
       const vid = document.createElement("video");
@@ -95,6 +96,7 @@ async function loadChat(memberId) {
       vid.controls=true;
       msgContent.appendChild(vid);
       vid.addEventListener("click", () => openMediaPopup(vid.src, "video"));
+      vid.addEventListener("touchstart", () => openMediaPopup(vid.src, "video"));
     }
 
     const meta = document.createElement("div");
@@ -169,9 +171,7 @@ function openChatIfPending() {
   if (memberId) loadChat(memberId);
 }
 
-/* =========================
-   멤버 프로필 페이지 초기화 + 이미지 팝업 기능
-========================= */
+/* 멤버 프로필 페이지 초기화 */
 function initMemberPage() {
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get("member");
@@ -179,101 +179,36 @@ function initMemberPage() {
   const member = MEMBER_LIST.find(m => m.id === memberId);
   if (!member) return;
 
-  // 프로필 정보
   const profileImg = document.getElementById("memberProfile");
   const bgImg = document.getElementById("memberBg");
-  document.getElementById("memberDisplayName").textContent = member.display;
+
   profileImg.src = `images/${member.id}_profile.jpg`;
   bgImg.src = `images/${member.id}_background.jpg`;
+
+  // 클릭 + 터치 이벤트 모두 등록
+  function openProfilePopup() { openMediaPopup(profileImg.src, "image"); }
+  function openBgPopup() { openMediaPopup(bgImg.src, "image"); }
+
+  profileImg.addEventListener("click", openProfilePopup);
+  profileImg.addEventListener("touchstart", openProfilePopup);
+
+  bgImg.addEventListener("click", openBgPopup);
+  bgImg.addEventListener("touchstart", openBgPopup);
 
   // 전체 채팅 보기 버튼
   document.getElementById("viewChatBtn").addEventListener("click", () => {
     window.location.href = `chat.html?member=${member.id}`;
   });
 
-  // 우측 상단 나가기(엑스) 버튼 추가
+  // 닫기 버튼
   const exitBtn = document.createElement("button");
   exitBtn.className = "exit-button";
   exitBtn.textContent = "✕";
   exitBtn.addEventListener("click", () => window.history.back());
   document.getElementById("app").appendChild(exitBtn);
-
-  // =========================
-  // 팝업 기능
-  // =========================
-  const popup = document.getElementById("mediaPopup");
-  const content = document.getElementById("mediaPopupContent");
-  const downloadBtn = document.getElementById("mediaPopupDownload");
-
-  // 프로필 이미지 클릭 시 팝업
-  profileImg.addEventListener("click", (e) => {
-    e.stopPropagation();
-    openMediaPopup(profileImg.src, "image");
-  });
-
-  // 배경 이미지 클릭 시 팝업 (카드 및 프로필 제외 영역)
-  bgImg.addEventListener("click", (e) => {
-    e.stopPropagation();
-    openMediaPopup(bgImg.src, "image");
-  });
-
-  // 팝업 외부 클릭 시 닫기
-  popup.addEventListener("click", (e) => {
-    if (e.target === popup) closeMediaPopup();
-  });
 }
 
-/* =========================
-   이미지/동영상 팝업 기능
-========================= */
-function openMediaPopup(src, type) {
-  const popup = document.getElementById("mediaPopup");
-  const content = document.getElementById("mediaPopupContent");
-  const downloadBtn = document.getElementById("mediaPopupDownload");
-  content.innerHTML = "";
-
-  if (type === "image") {
-    const img = document.createElement("img");
-    img.src = src;
-    content.appendChild(img);
-  } else if (type === "video") {
-    const vid = document.createElement("video");
-    vid.src = src;
-    vid.controls = true;
-    content.appendChild(vid);
-  }
-
-  // 다운로드 버튼
-  downloadBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
-      <path d="M5 18h14v-2H5v2zm7-2l-7-7h4V4h6v5h4l-7 7z"/>
-    </svg>
-  `;
-  downloadBtn.onclick = () => {
-    const a = document.createElement("a");
-    a.href = src;
-    a.download = src.split("/").pop();
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
-  popup.classList.remove("hidden");
-}
-
-function closeMediaPopup() {
-  const popup = document.getElementById("mediaPopup");
-  const content = document.getElementById("mediaPopupContent");
-  const downloadBtn = document.getElementById("mediaPopupDownload");
-  popup.classList.add("hidden");
-  content.innerHTML = "";
-  downloadBtn.innerHTML = "";
-  downloadBtn.onclick = null;
-}
-
-/* =========================
-   초기화
-========================= */
+/* 초기화 */
 window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("archiveList")) renderArchive();
   if (document.getElementById("chatScroll")) initChatPage();
