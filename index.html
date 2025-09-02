@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <title>Fan Bubble</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-  <script defer src="app.js"></script>
+<meta charset="utf-8">
+<title>Xdinary Heroes Bubble Archive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script defer src="app.js"></script>
 </head>
 <body class="app-bg">
-  <div id="app" class="app-frame">
+<div id="app" class="app-frame">
+  <header class="app-header app-header--center">
+    <h1 class="app-title">XdinaryHeroes bubble</h1>
+  </header>
+  <main id="archiveList" class="archive-list"></main>
 
-    <!-- 앱 메인 영역 -->
-    <main id="mainArea">
-      <!-- 기존의 카드, 멤버리스트, 컨텐츠 영역은 그대로 -->
-    </main>
-
-    <!-- 하단 탭바 -->
-    <nav class="app-tabbar">
-  <button class="tab-btn tab-btn--active" id="tabMembersBtn">Members</button>
-  <button class="tab-btn" id="tabSettingBtn" onclick="location.href='setting.html'">Setting</button>
-</nav>
-  </div>
+    <nav class="tab-bar">
+      <button id="tabMembersBtn" class="tab-btn active">Members</button>
+      <button id="tabSettingBtn" class="tab-btn">Setting</button>
+    </nav>
+</div>
 </body>
 </html>
