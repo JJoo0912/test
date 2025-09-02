@@ -107,7 +107,7 @@ async function loadChat(memberId) {
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
 
-/* 이미지/동영상 팝업 기능 (member.html 수정 반영) */
+/* 이미지/동영상 팝업 기능 */
 function openMediaPopup(src, type) {
   const popup = document.getElementById("mediaPopup");
   const content = document.getElementById("mediaPopupContent");
@@ -169,7 +169,7 @@ function openChatIfPending() {
   if (memberId) loadChat(memberId);
 }
 
-/* 멤버 프로필 페이지 */
+/* 멤버 프로필 페이지 초기화 */
 function initMemberPage() {
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get("member");
@@ -177,32 +177,24 @@ function initMemberPage() {
   const member = MEMBER_LIST.find(m => m.id === memberId);
   if (!member) return;
 
+  // 프로필 정보
   document.getElementById("memberDisplayName").textContent = member.display;
   document.getElementById("memberProfile").src = `images/${member.id}_profile.jpg`;
   document.getElementById("memberBg").src = `images/${member.id}_background.jpg`;
 
+  // 전체 채팅 보기 버튼
   document.getElementById("viewChatBtn").addEventListener("click", () => {
     window.location.href = `chat.html?member=${member.id}`;
   });
 
-  // 우측 상단 닫기 버튼
+  // 우측 상단 나가기(엑스) 버튼 추가
   const exitBtn = document.createElement("button");
   exitBtn.className = "exit-button";
-  exitBtn.textContent = "×";
-  exitBtn.addEventListener("click", () => window.history.back());
+  exitBtn.textContent = "✕";
+  exitBtn.addEventListener("click", () => {
+    window.history.back();
+  });
   document.getElementById("app").appendChild(exitBtn);
-
-  // 카드 높이 조정 (화면 1/4만 차지)
-  adjustMemberCardHeight();
-  window.addEventListener("resize", adjustMemberCardHeight);
-}
-
-function adjustMemberCardHeight() {
-  const card = document.querySelector(".member-profile-card");
-  if (!card) return;
-
-  const windowH = window.innerHeight;
-  card.style.height = `${windowH / 4}px`; // 화면의 25%만
 }
 
 /* 초기화 */
