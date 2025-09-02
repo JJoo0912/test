@@ -115,9 +115,9 @@ html, body {
 ========================= */
 .app-tabbar-left,
 .app-tabbar-right {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 50vh;            /* 화면 절반 */
+  width: 50%;            /* 화면 절반 */
   height: var(--tabbar-h);
   display: flex;
   align-items: center;
