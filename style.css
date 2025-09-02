@@ -183,9 +183,8 @@ html, body {
 .member-bg {
   width: 100%;               /* 화면 가로에 맞춤 */
   height: 100%;              /* 원본 비율 유지 */
-  max-height: 100%;          /* 부모 높이 넘지 않도록 */
   object-fit: cover;         /* 화면 꽉 채우기 */
-  object-position: top center; /* 위쪽부터 보여주기 */
+  object-position: center; /* 위쪽부터 보여주기 */
   display: block;
 }
 
