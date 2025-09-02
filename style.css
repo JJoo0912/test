@@ -1,5 +1,3 @@
-/* style.css */
-
 /* 전역 변수 */
 :root {
   --accent: #4D8DFF;
@@ -16,7 +14,7 @@
   --radius-sm: 12px;
   --shadow-card: 0 4px 20px rgba(0,0,0,.08);
   --header-h: 56px;
-  --tabbar-h: 56px; /* 상단 헤더 높이와 동일 */
+  --tabbar-h: 60px;
   --app-max-w: 420px; /* 최대 가로 폭 */
 }
 
@@ -78,14 +76,13 @@ html, body {
   font-weight:600;
 }
 
-/* 아카이브 목록 (멤버 리스트) */
-.archive-list {
-  flex:1;
-  overflow-y:auto;
-  padding:8px 0 calc(var(--tabbar-h) + 8px); /* 탭바 때문에 하단 패딩 확보 */
+/* 아카이브 목록 */
+.archive-list { 
+  flex:1; 
+  overflow-y:auto; 
+  padding:8px 0 80px; 
 }
 
-/* 아카이브 행 */
 .archive-row {
   display:flex;
   align-items:center;
@@ -114,67 +111,70 @@ html, body {
 .archive-row-status { margin-left:auto; font-size:12px; color:var(--text-light); }
 
 /* =========================
-   하단 탭바
+   좌우 분리 하단 탭바 (Members / Setting)
 ========================= */
-.app-tabbar {
+.app-tabbar-left,
+.app-tabbar-right {
   position: fixed;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  width: 50%;            /* 화면 절반 */
   height: var(--tabbar-h);
-  display: flex;
-  background: var(--bg);
-  border-top-left-radius: var(--radius-sm);
-  border-top-right-radius: var(--radius-sm);
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.08); /* 위쪽 그림자 */
-  z-index: 20;
-  overflow: hidden;
-}
-
-/* 탭 버튼 (Members / Setting) */
-.tab-btn {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg);
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.08); /* 위쪽 그림자 */
+  z-index: 20;
+}
+
+/* 좌측/우측 위치 지정 */
+.app-tabbar-left { left: 0; }
+.app-tabbar-right { right: 0; }
+
+/* 버튼 */
+.tab-btn {
+  width: 100%;
+  height: 100%;
+  background: none;
   border: none;
   font-size: 14px;
-  color: var(--text-strong);
+  color: var(--text-light);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-btn--active { 
+  color: var(--accent); 
+  font-weight: 600;
 }
 
 .tab-btn:hover {
   background: rgba(77,141,255,0.08);
 }
 
-.tab-btn:active {
-  background: rgba(77,141,255,0.15);
-}
-
-/* 버튼 구분선 */
-.tab-btn + .tab-btn {
-  border-left: 1px solid rgba(0,0,0,0.1); /* 좌우 버튼 사이 구분선 */
-}
+/* 멤버 프로필 페이지 */
+.app-frame--profile { overflow:hidden; }
 
 /* =========================
-   멤버 프로필 카드
+   멤버 프로필 카드 높이 조정 (member.html)
 ========================= */
 .member-profile-card {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: calc(25vh+45px);
+  height: calc(25vh+45px); /* 화면 높이 1/4 */
   background: #fff;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   box-shadow: 0 4px 20px rgba(0,0,0,.08);
   text-align: center;
-  padding-top: 60px;
+  padding-top: 60px; /* 프로필 이미지와 겹치지 않도록 여유 공간 */
   z-index: 10;
 }
 
+/* 동그란 프로필 이미지 */
 .member-profile-img {
   width: 120px;
   height: 120px;
@@ -182,16 +182,17 @@ html, body {
   border-radius: 50%;
   border: 4px solid #4D8DFF;
   position: absolute;
-  top: -90px;
+  top: -90px; /* 카드 위로 겹치도록 */
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
   cursor: pointer;
 }
 
+/* 멤버 프로필 배경 이미지 */
 .member-bg-wrap {
   width: 100%;
-  height: calc(75vh + 10px);
+  height: calc(75vh + 10px);  
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -200,20 +201,20 @@ html, body {
 }
 
 .member-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  width: 100%;               
+  height: 100%;              
+  object-fit: cover;         
+  object-position: center; 
   display: block;
 }
 
+/* 멤버 이름 & 상태 메시지 */
 .member-name {
   margin: 0;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 8px;
 }
-
 .member-status {
   font-size: 14px;
   color: #888;
@@ -231,6 +232,21 @@ html, body {
   width: 90%;
 }
 
+/* 닫기 버튼 */
+.exit-button {
+  position: absolute;
+  top:16px;
+  right:16px;
+  font-size:28px;
+  background:none;
+  border:none;
+  color:#111;
+  cursor:pointer;
+  z-index:100;
+  transition:color 0.2s;
+}
+.exit-button:hover { color:#ff5b5b; }
+
 /* 버튼 스타일 */
 .primary-btn {
   background:var(--accent);
@@ -247,9 +263,7 @@ html, body {
 
 .wide-btn { display:block; width:90%; margin:0 auto; }
 
-/* =========================
-   채팅 페이지
-========================= */
+/* 채팅 페이지 */
 .app-frame--chat { background:var(--bg-chat); }
 
 .chat-header {
@@ -276,9 +290,7 @@ html, body {
   justify-content:flex-end;
 }
 
-/* =========================
-   채팅 메시지
-========================= */
+/* 채팅 메시지 */
 .chat-msg-wrap { display:flex; align-items:flex-end; max-width:80%; margin-bottom:8px; }
 
 .chat-msg {
@@ -292,6 +304,7 @@ html, body {
   display:inline-block;
 }
 
+/* 메타 정보 */
 .chat-meta {
   font-size:11px;
   color:var(--text-light);
@@ -299,7 +312,7 @@ html, body {
   margin-left:4px;
 }
 
-/* 이미지/동영상 메시지 */
+/* 이미지 및 동영상 메시지 */
 .chat-media-image,
 .chat-media-video {
   max-width: 250px;
@@ -400,7 +413,10 @@ html, body {
 }
 
 .media-popup-close:hover,
-.media-popup-download:hover { background: rgba(0,0,0,0.6); }
+.media-popup-download:hover {
+  background: rgba(0,0,0,0.6);
+}
 
 .media-popup-close { top: 8px; right: 8px; }
+
 .media-popup-download { bottom: 8px; right: 8px; }
