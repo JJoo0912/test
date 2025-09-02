@@ -169,7 +169,7 @@ html, body {
 }
 
 /* 멤버 프로필 배경 이미지 */
-/* 멤버 프로필 배경 이미지 */
+
 .member-bg-wrap {
   width: 100%;
   height: calc(75vh + 10px);  /* 부모 높이 지정 */
@@ -182,7 +182,7 @@ html, body {
 
 .member-bg {
   width: 100%;               /* 화면 가로에 맞춤 */
-  height: auto;              /* 원본 비율 유지 */
+  height: 100%;              /* 원본 비율 유지 */
   max-height: 100%;          /* 부모 높이 넘지 않도록 */
   object-fit: cover;         /* 화면 꽉 채우기 */
   object-position: top center; /* 위쪽부터 보여주기 */
