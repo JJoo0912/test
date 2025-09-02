@@ -1,10 +1,10 @@
 const MEMBER_LIST = [
-  { id: "Gunil", display: "건일", status: "밝고 에너제틱한 리더" },
-  { id: "Jeongsu", display: "정수", status: "차분하고 섬세한 멤버" },
-  { id: "Gaon", display: "가온", status: "유쾌한 분위기 메이커" },
-  { id: "Ode", display: "오드", status: "감성적이고 다정함" },
-  { id: "Junhan", display: "준한", status: "듬직하고 책임감 있음" },
-  { id: "Jooyeon", display: "주연", status: "개성 넘치는 자유로운 영혼" }
+  { id: "Gunil", display: "건일 선배", status: " " },
+  { id: "Jeongsu", display: "정수", status: " " },
+  { id: "Gaon", display: "지석", status: "🇰🇷" },
+  { id: "Ode", display: "뜽이", status: "밥밥디라라" },
+  { id: "Junhan", display: "형준", status: "Iari basilio - Your love" },
+  { id: "Jooyeon", display: "쭈쿠나쭈타타", status: "전설? Get 했다." }
 ];
 
 /* 화면 비율 9:16 유지 */
