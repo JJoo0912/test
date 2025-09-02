@@ -168,6 +168,24 @@ html, body {
   cursor: pointer;
 }
 
+/* 멤버 프로필 배경 이미지 */
+.member-bg-wrap {
+  width: 100%;
+  height: calc(75vh + 10px); /* 화면 높이의 4/3 + 10px */
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* 프로필 카드 위로 나오지 않도록 */
+}
+
+.member-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 원본 비율 유지 */
+  object-position: center; /* 중앙 기준으로 보여줌 */
+}
+
 /* 멤버 이름 & 상태 메시지 */
 .member-name {
   margin: 0;
