@@ -109,7 +109,7 @@ html, body {
 .archive-row-status { margin-left:auto; font-size:12px; color:var(--text-light); }
 
 /* 앱 하단 탭바 */
-.tab-bar {
+.app-tabbar {
   position: sticky;
   bottom: 0;
   display: flex;
@@ -121,8 +121,9 @@ html, body {
   z-index: 10;
 }
 
+/* 탭 버튼 (Members, Setting 공용) */
 .tab-btn {
-  flex: 1;                /* 버튼 2개가 화면을 반씩 차지 */
+  flex: 1;                  /* 동일한 비율로 나눔 */
   height: 100%;
   background: none;
   border: none;
@@ -132,7 +133,11 @@ html, body {
   transition: color 0.2s;
 }
 
-.tab-btn.active {
+.tab-btn:hover {
+  color: var(--accent);
+}
+
+.tab-btn--active {
   color: var(--accent);
   font-weight: 600;
 }
