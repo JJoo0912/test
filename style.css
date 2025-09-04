@@ -348,6 +348,40 @@ html, body {
   box-shadow:0 8px 24px rgba(0,0,0,0.2);
 }
 
+/* 닉네임 설정하기 버튼 (리스트 스타일) */
+.nickname-setting-btn {
+  width: 100%;
+  background: #fff;
+  border: none;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+}
+
+/* 위아래 파란색 선 */
+.nickname-setting-btn::before,
+.nickname-setting-btn::after {
+  content: "";
+  position: absolute;
+  left: 12px;   /* 양쪽 조금 띄우기 */
+  right: 12px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.nickname-setting-btn::before { top: 0; }
+.nickname-setting-btn::after { bottom: 0; }
+
+.nickname-setting-btn:hover {
+  background: rgba(77,141,255,0.05); /* hover 시 살짝 강조 */
+}
+
 /* =========================
    이미지/동영상 팝업 모달
 ========================= */
