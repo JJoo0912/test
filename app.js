@@ -80,7 +80,10 @@ async function loadChat(memberId) {
     const msgContent = document.createElement("div");
     msgContent.className = "chat-msg";
 
-    if (msgObj.type === "text") msgContent.textContent = msgObj.text;
+    if (msgObj.type === "text") {
+      // ✅ (name) 치환 적용
+      msgContent.textContent = replaceNickname(msgObj.text, memberId);
+    }
     else if (msgObj.type === "image") {
       const img = document.createElement("img");
       img.src = msgObj.media; 
@@ -107,6 +110,24 @@ async function loadChat(memberId) {
     chatScroll.appendChild(msgWrap);
   }
   chatScroll.scrollTop = chatScroll.scrollHeight;
+}
+
+/* (name) 치환 함수 */
+function replaceNickname(text, memberId) {
+  const nick = localStorage.getItem(memberId + "Name") || "빌런즈";
+  return text.replace(/\(name\)/g, nick);
+}
+
+/* 채팅 페이지 초기화 */
+function initChatPage() {
+  const params = new URLSearchParams(window.location.search);
+  const memberId = params.get("member");
+  if (!memberId) return;
+  const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
+  document.getElementById("chatMemberName").textContent = displayName;
+
+  // ✅ 이제 팝업 대신 바로 채팅 불러오기
+  loadChat(memberId);
 }
 
 /* 이미지/동영상 팝업 기능 */
