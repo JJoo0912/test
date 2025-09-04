@@ -454,3 +454,35 @@ html, body {
 .media-popup-close { top: 8px; right: 8px; }
 
 .media-popup-download { bottom: 8px; right: 8px; }
+
+.nickname-member-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 16px;
+}
+
+.nickname-member-wrap {
+  text-align: center;
+}
+
+.nickname-member-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #4D8DFF;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.nickname-text {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #111;
+}
+
+.nickname-guide {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+}
