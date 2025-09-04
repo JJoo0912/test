@@ -14,7 +14,20 @@
     </header>
 
     <main class="app-main">
-      <p>Setting 기능 구현 중</p>
+      <!-- 닉네임 설정 버튼 -->
+      <div class="nickname-setting-btn" id="openNicknameSetting">
+        <span>닉네임 설정하기</span>
+        <span class="arrow">&gt;</span>
+      </div>
+
+      <!-- 닉네임 설정 영역 (버튼 클릭 시 표시) -->
+      <div id="nicknameSettingArea" class="hidden">
+        <p class="nickname-guide">프로필 아이콘을 눌러 멤버별 닉네임을 설정하세요!</p>
+        <div class="nickname-member-list">
+          <!-- 멤버 아이콘 자리 (JS에서 채움) -->
+        </div>
+        <div id="nicknameDisplayArea" class="nickname-display"></div>
+      </div>
     </main>
 
     <!-- 좌측 탭바 -->
@@ -28,9 +41,11 @@
     </nav>
 
     <footer class="app-footer">
-      <p class="footer-text">©All rights reserve. <br>
-                              제작. 낭만 @JJoo_is_my_life<br>
-                              지원. 시니 @Ioo3279o</p>
+      <p class="footer-text">
+        © All rights reserved.<br>
+        제작. 낭만 @JJoo_is_my_life<br>
+        지원. 시니 @Ioo3279o
+      </p>
     </footer>
   </div>
 </body>
