@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>닉네임 설정 | Fan Bubble</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="nickname.js"></script>
+</head>
+<body class="app-bg">
+  <div id="app" class="app-frame">
+
+    <header class="app-header app-header--center">
+      <h1 class="app-title">닉네임 설정</h1>
+    </header>
+
+    <main class="app-main">
+      <p class="nickname-guide">멤버를 선택해 닉네임을 설정하세요</p>
+
+      <!-- 멤버 프로필 2x3 -->
+      <div class="nickname-member-list" id="nicknameMemberList">
+        <!-- JS에서 멤버 아이콘 채움 -->
+      </div>
+
+      <!-- 멤버별 닉네임 표시 -->
+      <div id="nicknameDisplayArea" class="nickname-display"></div>
+    </main>
+
+    <!-- 닉네임 입력 모달 -->
+    <div id="nicknameModal" class="modal hidden">
+      <div class="modal-card">
+        <h3 id="modalMemberName">닉네임 설정</h3>
+        <input type="text" id="nickInput" placeholder="닉네임 입력">
+        <div style="margin-top:16px;">
+          <button class="primary-btn" id="saveNickBtn">저장</button>
+          <button class="primary-btn" style="background:#ccc; color:#111;" id="cancelNickBtn">취소</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
