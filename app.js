@@ -100,66 +100,78 @@ function renderArchive() {
 async function loadChat(memberId) {
   const chatScroll = document.getElementById("chatScroll");
   if (!chatScroll) return;
-  const res = await fetch(`data/${memberId}.csv`);
-  const csvText = await res.text();
-  const lines = csvText.trim().split("\n");
-  const headers = lines[0].split(",");
-  chatScroll.innerHTML = "";
 
+  // JSON 파일에서 CSV 목록 가져오기
+  const listRes = await fetch(`data/${memberId}_files.json`);
+  const csvFiles = await listRes.json(); // ["2506.csv","2507.csv", ...]
+
+  chatScroll.innerHTML = "";
   let lastDateStr = null;
 
-  for (let i = 1; i < lines.length; i++) {
-    const cols = lines[i].split(",");
-    const msgObj = {};
-    headers.forEach((h, idx) => msgObj[h.trim()] = cols[idx]?.trim());
+  // CSV 파일 순서대로 처리
+  for (const csvFile of csvFiles) {
+    const res = await fetch(`data/${memberId}/${csvFile}`);
+    const csvText = await res.text();
+    const lines = csvText.trim().split("\n");
+    const headers = lines[0].split(",");
 
-    if (msgObj.date) {
-      const msgDate = new Date(msgObj.date);
-      const dateStr = `${msgDate.getFullYear()}년 ${msgDate.getMonth()+1}월 ${msgDate.getDate()}일 ${["일","월","화","수","목","금","토"][msgDate.getDay()]}요일`;
-      if (dateStr !== lastDateStr) {
-        const dateDivider = document.createElement("div");
-        dateDivider.className = "chat-date-divider";
-        const span = document.createElement("span");
-        span.textContent = dateStr;
-        dateDivider.appendChild(span);
-        chatScroll.appendChild(dateDivider);
-        lastDateStr = dateStr;
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(",");
+      const msgObj = {};
+      headers.forEach((h, idx) => msgObj[h.trim()] = cols[idx]?.trim());
+
+      // 날짜 구분 처리
+      if (msgObj.date) {
+        const msgDate = new Date(msgObj.date);
+        const dateStr = `${msgDate.getFullYear()}년 ${msgDate.getMonth()+1}월 ${msgDate.getDate()}일 ${["일","월","화","수","목","금","토"][msgDate.getDay()]}요일`;
+        if (dateStr !== lastDateStr) {
+          const dateDivider = document.createElement("div");
+          dateDivider.className = "chat-date-divider";
+          const span = document.createElement("span");
+          span.textContent = dateStr;
+          dateDivider.appendChild(span);
+          chatScroll.appendChild(dateDivider);
+          lastDateStr = dateStr;
+        }
       }
+
+      // 메시지 렌더링 (기존 코드 그대로)
+      const msgWrap = document.createElement("div");
+      msgWrap.className = "chat-msg-wrap";
+      const msgContent = document.createElement("div");
+      msgContent.className = "chat-msg";
+
+      if (msgObj.type === "text") {
+        msgContent.textContent = replaceNickname(msgObj.text, memberId);
+      } else if (msgObj.type === "image") {
+        const img = document.createElement("img");
+        img.src = msgObj.media;
+        img.className = "chat-media-image";
+        msgContent.appendChild(img);
+        img.addEventListener("click", () => openMediaPopup(img.src, "image"));
+        img.addEventListener("touchstart", () => openMediaPopup(img.src, "image"));
+      } else if (msgObj.type === "video" || msgObj.type === "vedio") {
+        const vid = document.createElement("video");
+        vid.src = msgObj.media;
+        vid.className = "chat-media-video";
+        vid.controls = true;
+        msgContent.appendChild(vid);
+        vid.addEventListener("click", () => openMediaPopup(vid.src, "video"));
+        vid.addEventListener("touchstart", () => openMediaPopup(vid.src, "video"));
+      }
+
+      const meta = document.createElement("div");
+      meta.className = "chat-meta";
+      meta.textContent = msgObj.time || "";
+      msgWrap.appendChild(msgContent);
+      msgWrap.appendChild(meta);
+      chatScroll.appendChild(msgWrap);
     }
-
-    const msgWrap = document.createElement("div");
-    msgWrap.className = "chat-msg-wrap";
-    const msgContent = document.createElement("div");
-    msgContent.className = "chat-msg";
-
-    if (msgObj.type === "text") {
-      msgContent.textContent = replaceNickname(msgObj.text, memberId);
-    } else if (msgObj.type === "image") {
-      const img = document.createElement("img");
-      img.src = msgObj.media;
-      img.className = "chat-media-image";
-      msgContent.appendChild(img);
-      img.addEventListener("click", () => openMediaPopup(img.src, "image"));
-      img.addEventListener("touchstart", () => openMediaPopup(img.src, "image"));
-    } else if (msgObj.type === "video" || msgObj.type === "vedio") {
-      const vid = document.createElement("video");
-      vid.src = msgObj.media;
-      vid.className = "chat-media-video";
-      vid.controls = true;
-      msgContent.appendChild(vid);
-      vid.addEventListener("click", () => openMediaPopup(vid.src, "video"));
-      vid.addEventListener("touchstart", () => openMediaPopup(vid.src, "video"));
-    }
-
-    const meta = document.createElement("div");
-    meta.className = "chat-meta";
-    meta.textContent = msgObj.time || "";
-    msgWrap.appendChild(msgContent);
-    msgWrap.appendChild(meta);
-    chatScroll.appendChild(msgWrap);
   }
+
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
+
 
 function replaceNickname(text, memberId) {
   const nick = getNickname(memberId) || defaultNick;
