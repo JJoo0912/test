@@ -1,3 +1,8 @@
+// ==========================
+// Xdinary Heroes Fan Bubble App JS
+// ==========================
+
+// 멤버 리스트
 const MEMBER_LIST = [
   { id: "Gunil", display: "건일 선배", status: " " },
   { id: "Jeongsu", display: "정수", status: " " },
@@ -7,7 +12,11 @@ const MEMBER_LIST = [
   { id: "Jooyeon", display: "쭈쿠나쭈타타", status: "전설? Get 했다." }
 ];
 
-/* 화면 비율 9:16 유지 */
+const defaultNick = "빌런즈";
+
+// ==========================
+// 화면 비율 9:16 유지
+// ==========================
 function setAppAspectRatio() {
   const app = document.getElementById("app");
   const w = window.innerWidth;
@@ -32,7 +41,41 @@ function setAppAspectRatio() {
 window.addEventListener("resize", setAppAspectRatio);
 window.addEventListener("load", setAppAspectRatio);
 
-/* 아카이브 렌더링 */
+// ==========================
+// 닉네임 관리
+// ==========================
+function getNickname(memberId) { return localStorage.getItem(memberId + "Name"); }
+
+function openNickModal(member) {
+  currentMember = member;
+  document.getElementById("modalMemberName").textContent = member.display;
+  document.getElementById("nickInput").value = getNickname(member.id) || "";
+  document.getElementById("nicknameModal").classList.remove("hidden");
+}
+
+function closeNickModal() {
+  document.getElementById("nicknameModal").classList.add("hidden");
+  currentMember = null;
+}
+
+function saveNickname() {
+  const input = document.getElementById("nickInput");
+  const nick = input.value.trim() || defaultNick;
+  if (!currentMember) return;
+
+  // 저장
+  localStorage.setItem(currentMember.id + "Name", nick);
+
+  // 표시 업데이트
+  const nickText = document.getElementById(currentMember.id + "Nick");
+  if (nickText) nickText.textContent = `${currentMember.display} -> ${nick}`;
+
+  closeNickModal();
+}
+
+// ==========================
+// 아카이브 렌더링
+// ==========================
 function renderArchive() {
   const archiveList = document.getElementById("archiveList");
   if (!archiveList) return;
@@ -51,7 +94,9 @@ function renderArchive() {
   });
 }
 
-/* 채팅 불러오기 */
+// ==========================
+// 채팅 불러오기
+// ==========================
 async function loadChat(memberId) {
   const chatScroll = document.getElementById("chatScroll");
   if (!chatScroll) return;
@@ -71,56 +116,64 @@ async function loadChat(memberId) {
     msgContent.className = "chat-msg";
 
     if (msgObj.type === "text") {
-      // ✅ (name) 치환 적용
       msgContent.textContent = replaceNickname(msgObj.text, memberId);
     }
     else if (msgObj.type === "image") {
       const img = document.createElement("img");
-      img.src = msgObj.media; 
-      img.className="chat-media-image"; 
+      img.src = msgObj.media;
+      img.className = "chat-media-image";
       msgContent.appendChild(img);
       img.addEventListener("click", () => openMediaPopup(img.src, "image"));
       img.addEventListener("touchstart", () => openMediaPopup(img.src, "image"));
     }
     else if (msgObj.type === "video" || msgObj.type === "vedio") {
       const vid = document.createElement("video");
-      vid.src = msgObj.media; 
-      vid.className="chat-media-video"; 
-      vid.controls=true;
+      vid.src = msgObj.media;
+      vid.className = "chat-media-video";
+      vid.controls = true;
       msgContent.appendChild(vid);
       vid.addEventListener("click", () => openMediaPopup(vid.src, "video"));
       vid.addEventListener("touchstart", () => openMediaPopup(vid.src, "video"));
     }
 
     const meta = document.createElement("div");
-    meta.className = "chat-meta"; 
+    meta.className = "chat-meta";
     meta.textContent = msgObj.time || "";
-    msgWrap.appendChild(msgContent); 
+    msgWrap.appendChild(msgContent);
     msgWrap.appendChild(meta);
     chatScroll.appendChild(msgWrap);
   }
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
 
-/* (name) 치환 함수 */
+// (name) 치환
 function replaceNickname(text, memberId) {
-  const nick = localStorage.getItem(memberId + "Name") || "빌런즈";
+  const nick = getNickname(memberId) || defaultNick;
   return text.replace(/\(name\)/g, nick);
 }
 
-/* 채팅 페이지 초기화 */
+// ==========================
+// 채팅 페이지 초기화
+// ==========================
 function initChatPage() {
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get("member");
   if (!memberId) return;
   const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
   document.getElementById("chatMemberName").textContent = displayName;
-
-  // ✅ 팝업 제거 → 바로 채팅 로드
-  loadChat(memberId);
+  if (!getNickname(memberId)) openNickModal(MEMBER_LIST.find(m => m.id === memberId));
+  else loadChat(memberId);
 }
 
-/* 이미지/동영상 팝업 기능 */
+function openChatIfPending() {
+  const params = new URLSearchParams(window.location.search);
+  const memberId = params.get("member");
+  if (memberId) loadChat(memberId);
+}
+
+// ==========================
+// 이미지/동영상 팝업
+// ==========================
 function openMediaPopup(src, type) {
   const popup = document.getElementById("mediaPopup");
   const content = document.getElementById("mediaPopupContent");
@@ -165,7 +218,9 @@ function closeMediaPopup() {
   downloadBtn.onclick = null;
 }
 
-/* 멤버 프로필 페이지 초기화 */
+// ==========================
+// 멤버 페이지 초기화
+// ==========================
 function initMemberPage() {
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get("member");
@@ -173,37 +228,27 @@ function initMemberPage() {
   const member = MEMBER_LIST.find(m => m.id === memberId);
   if (!member) return;
 
-  // 이름
   document.getElementById("memberDisplayName").textContent = member.display;
-  // 상태 메시지
   document.getElementById("memberStatus").textContent = member.status;
 
   const profileImg = document.getElementById("memberProfile");
   const bgImg = document.getElementById("memberBg");
 
-  // 이미지 경로 설정
   profileImg.src = `images/${member.id}_profile.jpg`;
   bgImg.src = `images/${member.id}_background.jpg`;
 
-  // 이미지 로드 실패 대비
   profileImg.onerror = () => profileImg.src = "images/default_profile.jpg";
   bgImg.onerror = () => bgImg.src = "images/default_background.jpg";
 
-  // 클릭 이벤트
-  function openProfilePopup() { openMediaPopup(profileImg.src, "image"); }
-  function openBgPopup() { openMediaPopup(bgImg.src, "image"); }
+  profileImg.addEventListener("click", () => openMediaPopup(profileImg.src, "image"));
+  profileImg.addEventListener("touchstart", () => openMediaPopup(profileImg.src, "image"));
+  bgImg.addEventListener("click", () => openMediaPopup(bgImg.src, "image"));
+  bgImg.addEventListener("touchstart", () => openMediaPopup(bgImg.src, "image"));
 
-  profileImg.addEventListener("click", openProfilePopup);
-  profileImg.addEventListener("touchstart", openProfilePopup);
-  bgImg.addEventListener("click", openBgPopup);
-  bgImg.addEventListener("touchstart", openBgPopup);
-
-  // 전체 채팅 보기 버튼
   document.getElementById("viewChatBtn").addEventListener("click", () => {
     window.location.href = `chat.html?member=${member.id}`;
   });
 
-  // 닫기 버튼
   const exitBtn = document.createElement("button");
   exitBtn.className = "exit-button";
   exitBtn.textContent = "✕";
@@ -211,35 +256,40 @@ function initMemberPage() {
   document.getElementById("app").appendChild(exitBtn);
 }
 
-/* 초기화 */
+// ==========================
+// 탭바 이동 및 초기화
+// ==========================
+let currentMember = null;
+
 window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("archiveList")) renderArchive();
   if (document.getElementById("chatScroll")) initChatPage();
   if (document.getElementById("memberDisplayName")) initMemberPage();
 
-  // 탭바 버튼 이벤트
+  // 탭바
   const membersBtn = document.getElementById("tabMembersBtn");
   const settingBtn = document.getElementById("tabSettingBtn");
+  const nicknameBtn = document.getElementById("openNicknameSetting");
 
   if (membersBtn) {
     membersBtn.addEventListener("click", (e) => {
-      // index.html이면 클릭 막기
-      if (window.location.pathname.endsWith("index.html")) {
-        e.preventDefault();
-        return;
+      if (!window.location.pathname.endsWith("index.html")) {
+        window.location.href = "index.html";
       }
-      window.location.href = "index.html";
     });
   }
 
   if (settingBtn) {
     settingBtn.addEventListener("click", (e) => {
-      // setting.html이면 클릭 막기
-      if (window.location.pathname.endsWith("setting.html")) {
-        e.preventDefault();
-        return;
+      if (!window.location.pathname.endsWith("setting.html")) {
+        window.location.href = "setting.html";
       }
-      window.location.href = "setting.html";
+    });
+  }
+
+  if (nicknameBtn) {
+    nicknameBtn.addEventListener("click", () => {
+      window.location.href = "nickname.html";
     });
   }
 });
