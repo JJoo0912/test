@@ -520,3 +520,18 @@ html, body {
 .modal-card div button:last-child {
   margin-right: 0;
 }
+
+.prev-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  z-index: 100;
+  font-weight: 600;
+}
+
+.prev-button:hover { color: var(--accent); }
