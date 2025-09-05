@@ -5,8 +5,9 @@
   <title>Xdinary Heroes bubble</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
-<script defer src="nickname.js"></script>
-<script defer src="app.js"></script>
+  <!-- 닉네임 기능 분리 -->
+  <script defer src="nickname.js"></script>
+  <script defer src="app.js"></script>
 </head>
 <body class="app-bg">
   <div id="app" class="app-frame app-frame--chat">
@@ -28,7 +29,8 @@
       </div>
     </div>
 
-    <div id="nickModal" class="modal hidden">
+    <!-- 닉네임 설정 모달 -->
+    <div id="nicknameModal" class="modal hidden">
       <div class="modal-card">
         <h3>내 닉네임 설정</h3>
         <input id="nickInput" type="text" placeholder="닉네임 입력" maxlength="20" />
@@ -40,5 +42,22 @@
     </div>
 
   </div>
+
+  <script>
+    // 채팅 페이지 초기화
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const memberId = params.get("member");
+      if (!memberId) return;
+
+      // 채팅 멤버 이름 표시
+      const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
+      document.getElementById("chatMemberName").textContent = displayName;
+
+      // 닉네임 설정 여부 확인
+      if (!getNickname(memberId)) openNickModal(MEMBER_LIST.find(m => m.id === memberId));
+      else loadChat(memberId);
+    });
+  </script>
 </body>
 </html>
