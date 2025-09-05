@@ -12,17 +12,18 @@
 
     <!-- 배경 이미지 -->
     <div class="member-bg-wrap">
-      <img id="memberBg" class="member-bg" src="" alt="Background">
+      <img id="memberBg" class="member-bg" src="images/default_background.jpg" alt="Background">
     </div>
 
     <!-- 프로필 카드 -->
     <div class="member-profile-card">
       <!-- 동그란 프로필 이미지 -->
-      <img id="memberProfile" class="member-profile-img" src="" alt="Profile">
+      <img id="memberProfile" class="member-profile-img" src="images/default_profile.jpg" alt="Profile">
 
       <!-- 이름 & 상태 메시지 -->
       <h2 id="memberDisplayName" class="member-name">멤버 이름</h2>
-<p id="memberStatus" class="member-status">상태 메시지 또는 간단 설명</p>
+      <p id="memberStatus" class="member-status">상태 메시지 또는 간단 설명</p>
+
       <!-- 채팅 버튼 -->
       <button id="viewChatBtn" class="primary-btn wide-btn">채팅 보기</button>
     </div>
@@ -36,8 +37,21 @@
       </div>
     </div>
 
-    <!-- 닉네임 모달 (필요시) -->
-    <div id="nickModal" class="modal hidden">
+    <!-- 히스토리 팝업 -->
+    <div id="historyPopup" class="popup hidden">
+      <div class="popup-content">
+        <button class="popup-close" onclick="closeHistoryPopup()">✕</button>
+        <div id="historyPopupContent"></div>
+        <div class="popup-controls">
+          <button onclick="historyPrev()">◀</button>
+          <button onclick="historyNext()">▶</button>
+          <button onclick="historyDownload()">⬇</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 닉네임 모달 -->
+    <div id="nicknameModal" class="modal hidden">
       <div class="modal-card">
         <h3>닉네임을 입력해주세요</h3>
         <input type="text" id="nickInput" placeholder="닉네임 입력" style="width:80%; padding:8px; margin:12px 0; border-radius:12px; border:1px solid #ccc;">
