@@ -56,7 +56,7 @@ window.addEventListener("load", setAppAspectRatio);
 // 닉네임 관리
 // ==========================
 function getNickname(memberId) {
-  return localStorage.getItem(memberId + "Name") || defaultNick;
+  return localStorage.getItem(memberId + "Name") || defaultNicks[memberId] || "빌런즈";
 }
 
 function openNickModal(member) {
