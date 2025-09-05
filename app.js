@@ -258,11 +258,22 @@ function initMemberPage() {
   profileImg.onerror = () => profileImg.src = "images/default_profile.jpg";
   bgImg.onerror = () => bgImg.src = "images/default_background.jpg";
 
-profileImg.addEventListener("click", () => openImageHistoryPopup(member.id, "profile"));
-profileImg.addEventListener("touchstart", () => openImageHistoryPopup(member.id, "profile"));
-bgImg.addEventListener("click", () => openImageHistoryPopup(member.id, "background"));
-bgImg.addEventListener("touchstart", () => openImageHistoryPopup(member.id, "background"));
-  
+  profileImg.addEventListener("click", () => openMediaPopup(profileImg.src, "image"));
+  profileImg.addEventListener("touchstart", () => openMediaPopup(profileImg.src, "image"));
+  bgImg.addEventListener("click", () => openMediaPopup(bgImg.src, "image"));
+  bgImg.addEventListener("touchstart", () => openMediaPopup(bgImg.src, "image"));
+
+  document.getElementById("viewChatBtn").addEventListener("click", () => {
+    window.location.href = `chat.html?member=${member.id}`;
+  });
+
+  const exitBtn = document.createElement("button");
+  exitBtn.className = "exit-button";
+  exitBtn.textContent = "✕";
+  exitBtn.addEventListener("click", () => window.history.back());
+  document.getElementById("app").appendChild(exitBtn);
+}
+
 // ==========================
 // 탭바 이동 및 초기화
 // ==========================
