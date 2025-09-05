@@ -120,7 +120,9 @@ async function loadChat(memberId) {
       if (dateStr !== lastDateStr) {
         const dateDivider = document.createElement("div");
         dateDivider.className = "chat-date-divider";
-        dateDivider.textContent = dateStr;
+        const span = document.createElement("span");
+              span.textContent = dateStr;
+        dateDivider.appendChild(span);
         chatScroll.appendChild(dateDivider);
         lastDateStr = dateStr;
       }
