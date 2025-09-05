@@ -13,6 +13,7 @@ const MEMBER_LIST = [
 ];
 
 const defaultNick = "빌런즈";
+let currentMember = null;
 
 // ==========================
 // 화면 비율 9:16 유지
@@ -63,13 +64,9 @@ function saveNickname() {
   const nick = input.value.trim() || defaultNick;
   if (!currentMember) return;
 
-  // 저장
   localStorage.setItem(currentMember.id + "Name", nick);
-
-  // 표시 업데이트
   const nickText = document.getElementById(currentMember.id + "Nick");
   if (nickText) nickText.textContent = `${currentMember.display} -> ${nick}`;
-
   closeNickModal();
 }
 
@@ -106,14 +103,13 @@ async function loadChat(memberId) {
   const headers = lines[0].split(",");
   chatScroll.innerHTML = "";
 
-  let lastDateStr = null; //날짜 구분선용
-  
+  let lastDateStr = null;
+
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(",");
     const msgObj = {};
     headers.forEach((h, idx) => msgObj[h.trim()] = cols[idx]?.trim());
 
-    //날짜 구분선 추가
     if (msgObj.date) {
       const msgDate = new Date(msgObj.date);
       const dateStr = `${msgDate.getFullYear()}년 ${msgDate.getMonth()+1}월 ${msgDate.getDate()}일 ${["일","월","화","수","목","금","토"][msgDate.getDay()]}요일`;
@@ -121,13 +117,13 @@ async function loadChat(memberId) {
         const dateDivider = document.createElement("div");
         dateDivider.className = "chat-date-divider";
         const span = document.createElement("span");
-              span.textContent = dateStr;
+        span.textContent = dateStr;
         dateDivider.appendChild(span);
         chatScroll.appendChild(dateDivider);
         lastDateStr = dateStr;
       }
     }
-    
+
     const msgWrap = document.createElement("div");
     msgWrap.className = "chat-msg-wrap";
     const msgContent = document.createElement("div");
@@ -135,16 +131,14 @@ async function loadChat(memberId) {
 
     if (msgObj.type === "text") {
       msgContent.textContent = replaceNickname(msgObj.text, memberId);
-    }
-    else if (msgObj.type === "image") {
+    } else if (msgObj.type === "image") {
       const img = document.createElement("img");
       img.src = msgObj.media;
       img.className = "chat-media-image";
       msgContent.appendChild(img);
       img.addEventListener("click", () => openMediaPopup(img.src, "image"));
       img.addEventListener("touchstart", () => openMediaPopup(img.src, "image"));
-    }
-    else if (msgObj.type === "video" || msgObj.type === "vedio") {
+    } else if (msgObj.type === "video" || msgObj.type === "vedio") {
       const vid = document.createElement("video");
       vid.src = msgObj.media;
       vid.className = "chat-media-video";
@@ -164,7 +158,6 @@ async function loadChat(memberId) {
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
 
-// (name) 치환
 function replaceNickname(text, memberId) {
   const nick = getNickname(memberId) || defaultNick;
   return text.replace(/\(name\)/g, nick);
@@ -190,7 +183,7 @@ function openChatIfPending() {
 }
 
 // ==========================
-// 이미지/동영상 팝업
+// 이미지/동영상 팝업 (채팅창 전용, 그대로 유지)
 // ==========================
 function openMediaPopup(src, type) {
   const popup = document.getElementById("mediaPopup");
@@ -237,6 +230,72 @@ function closeMediaPopup() {
 }
 
 // ==========================
+// ===== 멤버 히스토리 팝업 =====
+// ==========================
+let historyPopupCurrentIndex = 0;
+let historyPopupImages = [];
+let historyPopupType = ""; // "profile" or "background"
+let historyPopupMemberId = "";
+
+function openHistoryPopup(memberId, type) {
+  historyPopupMemberId = memberId;
+  historyPopupType = type;
+  historyPopupImages = [];
+
+  for (let i = 1; i <= 10; i++) {
+    const src = `images/${type}/${memberId}/${i}.jpg`;
+    const xhr = new XMLHttpRequest();
+    xhr.open('HEAD', src, false);
+    xhr.send();
+    if (xhr.status !== 404) historyPopupImages.push(src);
+  }
+
+  if (historyPopupImages.length === 0) return;
+  historyPopupCurrentIndex = historyPopupImages.length - 1;
+  updateHistoryPopupImage();
+  document.getElementById("historyPopup").classList.remove("hidden");
+}
+
+function updateHistoryPopupImage() {
+  const content = document.getElementById("historyPopupContent");
+  content.innerHTML = "";
+  const img = document.createElement("img");
+  img.src = historyPopupImages[historyPopupCurrentIndex];
+  img.style.width = "100%";
+  img.style.height = "auto";
+  img.style.objectFit = "contain";
+  content.appendChild(img);
+}
+
+function historyPrev() {
+  if (historyPopupCurrentIndex > 0) {
+    historyPopupCurrentIndex--;
+    updateHistoryPopupImage();
+  }
+}
+
+function historyNext() {
+  if (historyPopupCurrentIndex < historyPopupImages.length - 1) {
+    historyPopupCurrentIndex++;
+    updateHistoryPopupImage();
+  }
+}
+
+function historyDownload() {
+  const src = historyPopupImages[historyPopupCurrentIndex];
+  const a = document.createElement("a");
+  a.href = src;
+  a.download = src.split("/").pop();
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function closeHistoryPopup() {
+  document.getElementById("historyPopup").classList.add("hidden");
+}
+
+// ==========================
 // 멤버 페이지 초기화
 // ==========================
 function initMemberPage() {
@@ -258,10 +317,11 @@ function initMemberPage() {
   profileImg.onerror = () => profileImg.src = "images/default_profile.jpg";
   bgImg.onerror = () => bgImg.src = "images/default_background.jpg";
 
-  profileImg.addEventListener("click", () => openMediaPopup(profileImg.src, "image"));
-  profileImg.addEventListener("touchstart", () => openMediaPopup(profileImg.src, "image"));
-  bgImg.addEventListener("click", () => openMediaPopup(bgImg.src, "image"));
-  bgImg.addEventListener("touchstart", () => openMediaPopup(bgImg.src, "image"));
+  // 단일 팝업 제거 → 히스토리 팝업 연결
+  profileImg.addEventListener("click", () => openHistoryPopup(member.id, "profile"));
+  profileImg.addEventListener("touchstart", () => openHistoryPopup(member.id, "profile"));
+  bgImg.addEventListener("click", () => openHistoryPopup(member.id, "background"));
+  bgImg.addEventListener("touchstart", () => openHistoryPopup(member.id, "background"));
 
   document.getElementById("viewChatBtn").addEventListener("click", () => {
     window.location.href = `chat.html?member=${member.id}`;
