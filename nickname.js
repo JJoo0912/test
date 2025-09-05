@@ -37,6 +37,38 @@ document.addEventListener("DOMContentLoaded", () => {
     img.addEventListener("click", () => openNickModal(member));
   });
 
+  // ==========================
+// 닉네임 관리
+// ==========================
+function getNickname(memberId) { return localStorage.getItem(memberId + "Name"); }
+
+function openNickModal(member) {
+  currentMember = member;
+  document.getElementById("modalMemberName").textContent = member.display;
+  document.getElementById("nickInput").value = getNickname(member.id) || "";
+  document.getElementById("nicknameModal").classList.remove("hidden");
+}
+
+function closeNickModal() {
+  document.getElementById("nicknameModal").classList.add("hidden");
+  currentMember = null;
+}
+
+function saveNickname() {
+  const input = document.getElementById("nickInput");
+  const nick = input.value.trim() || defaultNick;
+  if (!currentMember) return;
+
+  // 저장
+  localStorage.setItem(currentMember.id + "Name", nick);
+
+  // 표시 업데이트
+  const nickText = document.getElementById(currentMember.id + "Nick");
+  if (nickText) nickText.textContent = `${currentMember.display} -> ${nick}`;
+
+  closeNickModal();
+}
+  
   // 모달 버튼 이벤트
   document.getElementById("saveNickBtn").addEventListener("click", saveNickname);
   document.getElementById("cancelNickBtn").addEventListener("click", closeNickModal);
