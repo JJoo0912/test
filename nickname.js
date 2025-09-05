@@ -1,14 +1,22 @@
 // 멤버 리스트
 const MEMBER_LIST = [
-  { id: "Gunil", display: "건일" },
+  { id: "Gunil", display: "건일 선배" },
   { id: "Jeongsu", display: "정수" },
   { id: "Gaon", display: "가온" },
-  { id: "Ode", display: "오드" },
+  { id: "Ode", display: "뜽이" },
   { id: "Junhan", display: "준한" },
-  { id: "Jooyeon", display: "주연" }
+  { id: "Jooyeon", display: "쭈쿠나쭈타타" }
 ];
 
-const defaultNick = "빌런즈";
+// 멤버별 기본 닉네임
+const defaultNicks = {
+  Gunil: "건빵이",
+  Jeongsu: "말랑이",
+  Gaon: "가온패밀리",
+  Ode: "응큼이",
+  Junhan: "보무리",
+  Jooyeon: "소중이"
+};
 
 // 초기화
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nickText = document.createElement("div");
     nickText.className = "nickname-text";
     nickText.id = `${member.id}Nick`;
-    nickText.textContent = `${member.display} -> ${localStorage.getItem(member.id + "Name") || defaultNick}`;
+    nickText.textContent = `${member.display} -> ${localStorage.getItem(member.id + "Name") || defaultNicks[member.id]}`;
 
     wrap.appendChild(img);
     wrap.appendChild(nickText);
@@ -56,7 +64,7 @@ let currentMember = null;
 function openNickModal(member) {
   currentMember = member;
   document.getElementById("modalMemberName").textContent = member.display;
-  document.getElementById("nickInput").value = localStorage.getItem(member.id + "Name") || "";
+  document.getElementById("nickInput").value = localStorage.getItem(member.id + "Name") || defaultNicks[member.id];
   document.getElementById("nicknameModal").classList.remove("hidden");
 }
 
@@ -67,7 +75,7 @@ function closeNickModal() {
 
 function saveNickname() {
   const input = document.getElementById("nickInput");
-  const nick = input.value.trim() || defaultNick;
+  const nick = input.value.trim() || defaultNicks[currentMember.id];
   if (!currentMember) return;
 
   localStorage.setItem(currentMember.id + "Name", nick);
