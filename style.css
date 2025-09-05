@@ -297,8 +297,10 @@ html, body {
   justify-content: center;
   background: transparent;
   border: none;
+  border-radius: 0;
   overflow: hidden;
   padding: 0;
+  box-shadow: none;
 }
 
 .history-popup-content {
@@ -312,12 +314,13 @@ html, body {
 .history-popup-content img {
   width: 100%;
   height: auto;
+  border-radius: 0;
   object-fit: contain;
 }
 
-/* 닫기 버튼, 저장 버튼 → mediaPopup 과 동일 */
-#historyPopup .popup-close-btn,
-#historyPopup .popup-download-btn {
+/* 닫기 버튼과 저장 버튼 → media-popup 스타일 그대로 */
+.history-popup-close,
+.history-popup-download {
   position: absolute;
   background: rgba(0,0,0,0.3);
   border: none;
@@ -333,41 +336,48 @@ html, body {
   justify-content: center;
 }
 
-#historyPopup .popup-close-btn:hover,
-#historyPopup .popup-download-btn:hover {
+.history-popup-close:hover,
+.history-popup-download:hover {
   background: rgba(0,0,0,0.6);
 }
 
-#historyPopup .popup-close-btn { top: 8px; right: 8px; }
-#historyPopup .popup-download-btn { bottom: 8px; right: 8px; }
+.history-popup-close { top: 8px; right: 8px; }
+.history-popup-download { bottom: 8px; right: 8px; }
 
-/* 좌우 네비게이션 버튼 */
-.history-prev-btn,
-.history-next-btn {
+/* 좌우 네비게이션 버튼 (닫기/저장 버튼과 유사 스타일) */
+.history-nav-prev,
+.history-nav-next {
   position: absolute;
-  top: 50%;
+  top: 50%;                         /* 사진 중간 높이 */
   transform: translateY(-50%);
+  background: rgba(0,0,0,0.3);
   border: none;
-  background: rgba(0,0,0,0.4);
   color: #fff;
   width: 40px;
   height: 40px;
   font-size: 20px;
-  border-radius: 50%;
+  border-radius: var(--radius-sm);   /* 닫기/저장과 동일 둥글기 */
   cursor: pointer;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.2s;
 }
 
-.history-prev-btn:hover,
-.history-next-btn:hover {
+.history-nav-prev:hover,
+.history-nav-next:hover {
   background: rgba(0,0,0,0.6);
 }
 
-.history-prev-btn { left: 8px; }
-.history-next-btn { right: 8px; }
+.history-nav-prev { left: 8px; }
+.history-nav-next { right: 8px; }
+
+.history-nav-prev:disabled,
+.history-nav-next:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
 
 /* 닫기 버튼 */
 .exit-button {
