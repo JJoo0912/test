@@ -252,11 +252,40 @@ function initMemberPage() {
   const profileImg = document.getElementById("memberProfile");
   const bgImg = document.getElementById("memberBg");
 
-  profileImg.src = `images/${member.id}_profile.jpg`;
-  bgImg.src = `images/${member.id}_background.jpg`;
+  // 확장자 우선순위 목록
+  const exts = ["jpg", "JPG", "JPEG"];
 
-  profileImg.onerror = () => profileImg.src = "images/default_profile.jpg";
-  bgImg.onerror = () => bgImg.src = "images/default_background.jpg";
+  // 이미지 로더 (순차 시도)
+  function tryLoadImage(imgElement, basePath, fallback) {
+    let idx = 0;
+    function tryNext() {
+      if (idx >= exts.length) {
+        imgElement.src = fallback;
+        return;
+      }
+      imgElement.src = `${basePath}.${exts[idx]}`;
+      imgElement.onerror = () => {
+        idx++;
+        tryNext();
+      };
+    }
+    tryNext();
+  }
+
+  // 프로필 / 배경 각각 적용
+  tryLoadImage(profileImg, `images/${member.id}_profile`, "images/default_profile.jpg");
+  tryLoadImage(bgImg, `images/${member.id}_background`, "images/default_background.jpg");
+
+  document.getElementById("viewChatBtn").addEventListener("click", () => {
+    window.location.href = `chat.html?member=${member.id}`;
+  });
+
+  const exitBtn = document.createElement("button");
+  exitBtn.className = "exit-button";
+  exitBtn.textContent = "✕";
+  exitBtn.addEventListener("click", () => window.history.back());
+  document.getElementById("app").appendChild(exitBtn);
+}
 
   // ==========================
 // 이미지 히스토리 팝업 (구현방안 2)
