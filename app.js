@@ -2,7 +2,9 @@
 // Xdinary Heroes Fan Bubble App JS
 // ==========================
 
+// ==========================
 // 멤버 리스트
+// ==========================
 const MEMBER_LIST = [
   { id: "Gunil", display: "건일 선배", status: " " },
   { id: "Jeongsu", display: "정수", status: " " },
@@ -39,6 +41,7 @@ function setAppAspectRatio() {
   app.style.width = `${appW}px`;
   app.style.height = `${appH}px`;
 }
+
 window.addEventListener("resize", setAppAspectRatio);
 window.addEventListener("load", setAppAspectRatio);
 
@@ -176,14 +179,8 @@ function initChatPage() {
   else loadChat(memberId);
 }
 
-function openChatIfPending() {
-  const params = new URLSearchParams(window.location.search);
-  const memberId = params.get("member");
-  if (memberId) loadChat(memberId);
-}
-
 // ==========================
-// 이미지/동영상 팝업 (채팅창 전용, 그대로 유지)
+// 이미지/동영상 팝업 (채팅창 전용)
 // ==========================
 function openMediaPopup(src, type) {
   const popup = document.getElementById("mediaPopup");
@@ -230,7 +227,7 @@ function closeMediaPopup() {
 }
 
 // ==========================
-// ===== 멤버 히스토리 팝업 =====
+// 멤버 히스토리 팝업
 // ==========================
 let historyPopupCurrentIndex = 0;
 let historyPopupImages = [];
@@ -337,31 +334,24 @@ function initMemberPage() {
 // ==========================
 // 탭바 이동 및 초기화
 // ==========================
-let currentMember = null;
-
 window.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("archiveList")) renderArchive();
   if (document.getElementById("chatScroll")) initChatPage();
   if (document.getElementById("memberDisplayName")) initMemberPage();
 
-  // 탭바
   const membersBtn = document.getElementById("tabMembersBtn");
   const settingBtn = document.getElementById("tabSettingBtn");
   const nicknameBtn = document.getElementById("openNicknameSetting");
 
   if (membersBtn) {
-    membersBtn.addEventListener("click", (e) => {
-      if (!window.location.pathname.endsWith("index.html")) {
-        window.location.href = "index.html";
-      }
+    membersBtn.addEventListener("click", () => {
+      if (!window.location.pathname.endsWith("index.html")) window.location.href = "index.html";
     });
   }
 
   if (settingBtn) {
-    settingBtn.addEventListener("click", (e) => {
-      if (!window.location.pathname.endsWith("setting.html")) {
-        window.location.href = "setting.html";
-      }
+    settingBtn.addEventListener("click", () => {
+      if (!window.location.pathname.endsWith("setting.html")) window.location.href = "setting.html";
     });
   }
 
