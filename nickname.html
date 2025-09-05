@@ -10,12 +10,17 @@
 <body class="app-bg">
   <div id="app" class="app-frame">
 
+    <!-- =====================
+         헤더: 뒤로가기 버튼 + 제목
+         ===================== -->
     <header class="app-header app-header--center">
+      <button class="exit-button" id="backToSetting">&lt;</button>
       <h1 class="app-title">닉네임 설정</h1>
     </header>
 
     <main class="app-main">
-      <p class="nickname-guide">멤버를 선택해 닉네임을 설정하세요</p>
+      <!-- 안내 문구 -->
+      <p class="nickname-guide">멤버를 선택하여 닉네임을 수정하세요!</p>
 
       <!-- 멤버 프로필 2x3 -->
       <div class="nickname-member-list" id="nicknameMemberList">
@@ -39,5 +44,13 @@
     </div>
 
   </div>
+
+  <script>
+    // 뒤로가기 버튼 이벤트
+    document.getElementById("backToSetting").addEventListener("click", () => {
+      window.location.href = "setting.html";
+    });
+  </script>
+
 </body>
 </html>
