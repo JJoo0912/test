@@ -14,7 +14,14 @@ const MEMBER_LIST = [
   { id: "Jooyeon", display: "쭈쿠나쭈타타", status: "전설? Get 했다." }
 ];
 
-const defaultNick = "빌런즈";
+const defaultNicks = {
+  Gunil: "건빵이",
+  Jeongsu: "말랑이",
+  Gaon: "가온패밀리",
+  Ode: "응큼이",
+  Junhan: "보무리",
+  Jooyeon: "소중이"
+};
 let currentMember = null;
 
 // ==========================
