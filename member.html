@@ -26,9 +26,10 @@
     <!-- 히스토리 팝업 (프로필/배경 이미지 공용) -->
     <div id="historyPopup" class="hidden">
       <div class="history-popup-card">
-        <!-- 닫기 버튼 -->
-        <button id="historyPopupClose" class="popup-close-btn" onclick="closeHistoryPopup()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
+        <!-- 닫기 버튼: 클래스 이름이 CSS와 일치하도록 변경 -->
+        <button id="historyPopupClose" class="history-popup-close" onclick="closeHistoryPopup()">
+          <!-- stroke로 그려진 X 아이콘 (선으로 표시되게 수정) -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
         </button>
@@ -36,12 +37,15 @@
         <!-- 이미지 / 배경 표시 -->
         <div id="historyPopupContent" class="history-popup-content"></div>
 
-        <!-- 이전/다음 버튼 -->
-        <button class="history-prev-btn" onclick="historyPrev()">〈</button>
-        <button class="history-next-btn" onclick="historyNext()">〉</button>
+        <!-- 이전/다음 버튼 (클래스명은 CSS에 맞춤)
+             ※ 왼쪽 버튼은 '최근'으로(더 큰 번호) -> historyNext()
+                오른쪽 버튼은 '과거'로(더 작은 번호) -> historyPrev()
+        -->
+        <button class="history-nav-prev" onclick="historyNext()">‹</button>
+        <button class="history-nav-next" onclick="historyPrev()">›</button>
 
-        <!-- 저장 버튼 -->
-        <button id="historyPopupDownload" class="popup-download-btn" onclick="historyDownload()">
+        <!-- 저장 버튼: 클래스/아이디 이름이 CSS와 일치하도록 변경 -->
+        <button id="historyPopupDownload" class="history-popup-download" onclick="historyDownload()">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
             <path d="M5 18h14v-2H5v2zm7-2l-7-7h4V4h6v5h4l-7 7z"/>
           </svg>
