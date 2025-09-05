@@ -258,9 +258,6 @@ function initMemberPage() {
   profileImg.onerror = () => profileImg.src = "images/default_profile.jpg";
   bgImg.onerror = () => bgImg.src = "images/default_background.jpg";
 
-  profileImg.addEventListener("click", () => openImageHistoryPopup(member.id, "profile"));
-bgImg.addEventListener("click", () => openImageHistoryPopup(member.id, "background"));
-  
   // ==========================
 // 이미지 히스토리 팝업 (구현방안 2)
 // ==========================
