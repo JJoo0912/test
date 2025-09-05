@@ -297,10 +297,8 @@ html, body {
   justify-content: center;
   background: transparent;
   border: none;
-  border-radius: 0;
   overflow: hidden;
   padding: 0;
-  box-shadow: none;
 }
 
 .history-popup-content {
@@ -314,13 +312,12 @@ html, body {
 .history-popup-content img {
   width: 100%;
   height: auto;
-  border-radius: 0;
   object-fit: contain;
 }
 
-/* 닫기 버튼과 저장 버튼은 기존 media-popup 스타일 그대로 사용 */
-.history-popup-close,
-.history-popup-download {
+/* 닫기 버튼, 저장 버튼 → mediaPopup 과 동일 */
+#historyPopup .popup-close-btn,
+#historyPopup .popup-download-btn {
   position: absolute;
   background: rgba(0,0,0,0.3);
   border: none;
@@ -336,51 +333,41 @@ html, body {
   justify-content: center;
 }
 
-.history-popup-close:hover,
-.history-popup-download:hover {
+#historyPopup .popup-close-btn:hover,
+#historyPopup .popup-download-btn:hover {
   background: rgba(0,0,0,0.6);
 }
 
-.history-popup-close { top: 8px; right: 8px; }
-.history-popup-download { bottom: 8px; right: 8px; }
+#historyPopup .popup-close-btn { top: 8px; right: 8px; }
+#historyPopup .popup-download-btn { bottom: 8px; right: 8px; }
 
-/* 히스토리 이전/다음 버튼 (미디어 팝업 nav 버튼 스타일 그대로 사용) */
-.history-nav-prev,
-.history-nav-next {
+/* 좌우 네비게이션 버튼 */
+.history-prev-btn,
+.history-next-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   border: none;
   background: rgba(0,0,0,0.4);
   color: #fff;
-  width: 36px;
-  height: 36px;
-  font-size: 18px;
-  border-radius: 18px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 50%;
   cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.history-nav-prev { left: 8px; }
-.history-nav-next { right: 8px; }
-
-.history-nav-prev:disabled,
-.history-nav-next:disabled {
-  opacity: 0.4;
-  cursor: default;
+.history-prev-btn:hover,
+.history-next-btn:hover {
+  background: rgba(0,0,0,0.6);
 }
 
-/* 이미지 히스토리 팝업 정보 텍스트 (선택 사항) */
-.history-nav-info {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 4px 8px;
-  font-size: 12px;
-  color: #fff;
-  background: rgba(0,0,0,0.35);
-  border-radius: 10px;
-}
+.history-prev-btn { left: 8px; }
+.history-next-btn { right: 8px; }
 
 /* 닫기 버튼 */
 .exit-button {
