@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XdinaryHeroes Bubble</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="app.js"></script> <!-- JS 연결 -->
+  <script defer src="app.js"></script>
 </head>
 <body class="app-bg">
   <div id="app" class="app-frame">
@@ -19,15 +19,6 @@
         <span>닉네임 설정하기</span>
         <span class="arrow">&gt;</span>
       </button>
-
-      <!-- 닉네임 설정 영역 (버튼 클릭 시 표시) -->
-      <div id="nicknameSettingArea" class="hidden">
-        <p class="nickname-guide">프로필 아이콘을 눌러 멤버별 닉네임을 설정하세요!</p>
-        <div class="nickname-member-list">
-          <!-- 멤버 아이콘 자리 (JS에서 채움) -->
-        </div>
-        <div id="nicknameDisplayArea" class="nickname-display"></div>
-      </div>
     </main>
 
     <!-- 좌측 탭바 -->
@@ -48,5 +39,13 @@
       </p>
     </footer>
   </div>
+
+  <script>
+    // 닉네임 설정 버튼 → nickname.html 이동
+    document.getElementById("openNicknameSetting")
+      .addEventListener("click", () => {
+        window.location.href = "nickname.html";
+      });
+  </script>
 </body>
 </html>
