@@ -642,32 +642,32 @@ html, body {
 .nickname-member-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;             /* 행간/열간 간격 증가 */
-  margin: 16px;          /* 좌우 여백 */
-  justify-items: center;  /* 각 아이템 가운데 정렬 */
+  gap: 16px;             /* 간격 축소 */
+  margin: 16px;
+  justify-items: center;
 }
 
 /* 멤버 아이콘 및 행 */
 .nickname-member-wrap {
   text-align: center;
-  margin-top: 16px;      /* 상단 위치 조금 내림 */
+  margin-top: 8px;       /* 여백 줄임 */
 }
 
 /* 멤버 프로필 이미지 (동그라미) */
 .nickname-member-img {
-  width: 120px;           /* 기존 80px → 120px로 확대 */
-  height: 120px;
+  width: 80px;           /* 120px → 80px */
+  height: 80px;
   border-radius: 50%;
-  border: 3px solid var(--accent);
+  border: 2px solid var(--accent); /* 테두리도 얇게 */
   cursor: pointer;
   object-fit: cover;
-  margin-bottom: 8px;     /* 닉네임과 간격 */
+  margin-bottom: 6px;    /* 닉네임과 간격 줄임 */
 }
 
 /* 닉네임 텍스트 */
 .nickname-text {
-  margin-top: 8px;       /* 이미지와 텍스트 간격 조정 */
-  font-size: 15px;       /* 글자 크기 약간 키움 */
+  margin-top: 4px;
+  font-size: 13px;       /* 글자 크기 약간 축소 */
   color: var(--text-strong);
   font-weight: 500;
 }
