@@ -529,7 +529,7 @@ html, body {
   color: var(--text);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   cursor: pointer;
   position: relative;
 }
@@ -539,8 +539,8 @@ html, body {
 .nickname-setting-btn::after {
   content: "";
   position: absolute;
-  left: 12px;   /* 양쪽 조금 띄우기 */
-  right: 12px;
+  left: 17px;   /* 양쪽 조금 띄우기 */
+  right: 17px;
   height: 1px;
   background: var(--accent);
 }
