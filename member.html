@@ -12,41 +12,40 @@
 
     <!-- 배경 이미지 -->
     <div class="member-bg-wrap">
-      <img id="memberBg" class="member-bg" src="images/default_background.jpg" alt="Background">
+      <img id="memberBg" class="member-bg" src="" alt="Background">
     </div>
 
     <!-- 프로필 카드 -->
     <div class="member-profile-card">
-      <!-- 동그란 프로필 이미지 -->
-      <img id="memberProfile" class="member-profile-img" src="images/default_profile.jpg" alt="Profile">
-
-      <!-- 이름 & 상태 메시지 -->
+      <img id="memberProfile" class="member-profile-img" src="" alt="Profile">
       <h2 id="memberDisplayName" class="member-name">멤버 이름</h2>
       <p id="memberStatus" class="member-status">상태 메시지 또는 간단 설명</p>
-
-      <!-- 채팅 버튼 -->
       <button id="viewChatBtn" class="primary-btn wide-btn">채팅 보기</button>
     </div>
 
-    <!-- 미디어 팝업 -->
-    <div id="mediaPopup" class="hidden">
-      <div class="media-popup-card">
-        <button id="mediaPopupClose" class="media-popup-close" onclick="closeMediaPopup()">×</button>
-        <div id="mediaPopupContent" class="media-popup-content"></div>
-        <button id="mediaPopupDownload" class="media-popup-download"></button>
-      </div>
-    </div>
+    <!-- 히스토리 팝업 (프로필/배경 이미지 공용) -->
+    <div id="historyPopup" class="hidden">
+      <div class="history-popup-card">
+        <!-- 닫기 버튼 -->
+        <button id="historyPopupClose" class="popup-close-btn" onclick="closeHistoryPopup()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
 
-    <!-- 히스토리 팝업 -->
-    <div id="historyPopup" class="popup hidden">
-      <div class="popup-content">
-        <button class="popup-close" onclick="closeHistoryPopup()">✕</button>
-        <div id="historyPopupContent"></div>
-        <div class="popup-controls">
-          <button onclick="historyPrev()">◀</button>
-          <button onclick="historyNext()">▶</button>
-          <button onclick="historyDownload()">⬇</button>
-        </div>
+        <!-- 이미지 / 배경 표시 -->
+        <div id="historyPopupContent" class="history-popup-content"></div>
+
+        <!-- 이전/다음 버튼 -->
+        <button class="history-prev-btn" onclick="historyPrev()">〈</button>
+        <button class="history-next-btn" onclick="historyNext()">〉</button>
+
+        <!-- 저장 버튼 -->
+        <button id="historyPopupDownload" class="popup-download-btn" onclick="historyDownload()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
+            <path d="M5 18h14v-2H5v2zm7-2l-7-7h4V4h6v5h4l-7 7z"/>
+          </svg>
+        </button>
       </div>
     </div>
 
