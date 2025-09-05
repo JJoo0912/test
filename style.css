@@ -527,15 +527,18 @@ html, body {
   font-size: 15px;
   font-weight: 500;
   color: var(--text);
-  text-align: center;       /* 텍스트 중앙 정렬 */
-  position: relative;       /* 아이콘 절대 위치 기준 */
+  text-align: center;       /* 글씨 중앙 정렬 */
+  position: relative;       /* 아이콘 위치 기준 */
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* 글씨 중앙 정렬 */
 }
 
-/* > 아이콘을 span 같은 태그로 따로 감싸서 class 부여 */
+/* 오른쪽 끝 아이콘 > */
 .nickname-setting-btn .arrow {
   position: absolute;
-  right: 16px;              /* 버튼 오른쪽 여백 */
+  right: 16px;              /* 버튼 오른쪽 끝 */
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
