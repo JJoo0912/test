@@ -504,12 +504,12 @@ html, body {
 
 /* 닉네임 입력 모달 */
 .modal-card input#nickInput {
-  width: 100%;
+  width: 80%;
   padding: 12px;
   font-size: 15px;
   border: 1px solid #ccc;
   border-radius: var(--radius-md);
-  margin-top: 12px;
+  margin: 12px auto 0 auto;
 }
 
 /* 저장/취소 버튼 간격 */
