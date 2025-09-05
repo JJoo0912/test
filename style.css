@@ -455,34 +455,68 @@ html, body {
 
 .media-popup-download { bottom: 8px; right: 8px; }
 
+/* =========================
+   닉네임 페이지
+========================= */
+
+/* 안내 문구 */
+.nickname-guide {
+  text-align: center;
+  font-size: 16px;        /* 글자 크기 확대 */
+  font-weight: 500;
+  margin-top: 24px;       /* 위쪽 여백 추가 */
+  margin-bottom: 24px;    /* 아래쪽 여백 추가 */
+}
+
+/* 멤버 리스트 (2x3) */
 .nickname-member-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin: 16px;
+  gap: 24px;             /* 행간/열간 간격 증가 */
+  margin: 16px;          /* 좌우 여백 */
+  justify-items: center;  /* 각 아이템 가운데 정렬 */
 }
 
+/* 멤버 아이콘 및 행 */
 .nickname-member-wrap {
   text-align: center;
+  margin-top: 16px;      /* 상단 위치 조금 내림 */
 }
 
+/* 멤버 프로필 이미지 (동그라미) */
 .nickname-member-img {
-  width: 80px;
-  height: 80px;
+  width: 120px;           /* 기존 80px → 120px로 확대 */
+  height: 120px;
   border-radius: 50%;
-  border: 3px solid #4D8DFF;
+  border: 3px solid var(--accent);
   cursor: pointer;
   object-fit: cover;
+  margin-bottom: 8px;     /* 닉네임과 간격 */
 }
 
+/* 닉네임 텍스트 */
 .nickname-text {
-  margin-top: 4px;
-  font-size: 14px;
-  color: #111;
+  margin-top: 8px;       /* 이미지와 텍스트 간격 조정 */
+  font-size: 15px;       /* 글자 크기 약간 키움 */
+  color: var(--text-strong);
+  font-weight: 500;
 }
 
-.nickname-guide {
-  text-align: center;
-  font-size: 14px;
-  margin-top: 8px;
+/* 닉네임 입력 모달 */
+.modal-card input#nickInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius-md);
+  margin-top: 12px;
+}
+
+/* 저장/취소 버튼 간격 */
+.modal-card div button {
+  margin-right: 8px;
+}
+
+.modal-card div button:last-child {
+  margin-right: 0;
 }
