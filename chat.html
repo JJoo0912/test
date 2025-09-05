@@ -29,20 +29,6 @@
 
   </div>
 
-  <script>
-    // 채팅 페이지 초기화
-    document.addEventListener("DOMContentLoaded", () => {
-      const params = new URLSearchParams(window.location.search);
-      const memberId = params.get("member");
-      if (!memberId) return;
-
-      // 채팅 멤버 이름 표시
-      const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
-      document.getElementById("chatMemberName").textContent = displayName;
-
-      // 닉네임이 없으면 기본값 사용, 바로 채팅 로딩
-      loadChat(memberId);
-    });
-  </script>
+  <!-- 하단 script 제거! -->
 </body>
 </html>
