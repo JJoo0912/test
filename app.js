@@ -188,11 +188,8 @@ function initChatPage() {
   const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
   document.getElementById("chatMemberName").textContent = displayName;
 
+  // 닉네임 모달 제거, 기본 닉네임만 적용
   loadChat(memberId);
-
-  if (!localStorage.getItem(memberId + "Name")) {
-    openNickModal(MEMBER_LIST.find(m => m.id === memberId));
-  }
 }
 
 // ==========================
