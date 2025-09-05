@@ -2,9 +2,9 @@
 const MEMBER_LIST = [
   { id: "Gunil", display: "건일 선배" },
   { id: "Jeongsu", display: "정수" },
-  { id: "Gaon", display: "가온" },
+  { id: "Gaon", display: "지석" },
   { id: "Ode", display: "뜽이" },
-  { id: "Junhan", display: "준한" },
+  { id: "Junhan", display: "형준" },
   { id: "Jooyeon", display: "쭈쿠나쭈타타" }
 ];
 
