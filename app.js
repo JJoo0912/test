@@ -48,12 +48,14 @@ window.addEventListener("load", setAppAspectRatio);
 // ==========================
 // 닉네임 관리
 // ==========================
-function getNickname(memberId) { return localStorage.getItem(memberId + "Name"); }
+function getNickname(memberId) {
+  return localStorage.getItem(memberId + "Name") || defaultNick;
+}
 
 function openNickModal(member) {
   currentMember = member;
   document.getElementById("modalMemberName").textContent = member.display;
-  document.getElementById("nickInput").value = getNickname(member.id) || "";
+  document.getElementById("nickInput").value = getNickname(member.id);
   document.getElementById("nicknameModal").classList.remove("hidden");
 }
 
@@ -101,14 +103,12 @@ async function loadChat(memberId) {
   const chatScroll = document.getElementById("chatScroll");
   if (!chatScroll) return;
 
-  // JSON 파일에서 CSV 목록 가져오기
   const listRes = await fetch(`data/${memberId}_files.json`);
-  const csvFiles = await listRes.json(); // ["2506.csv","2507.csv", ...]
+  const csvFiles = await listRes.json();
 
   chatScroll.innerHTML = "";
   let lastDateStr = null;
 
-  // CSV 파일 순서대로 처리
   for (const csvFile of csvFiles) {
     const res = await fetch(`data/${memberId}/${csvFile}`);
     const csvText = await res.text();
@@ -120,7 +120,7 @@ async function loadChat(memberId) {
       const msgObj = {};
       headers.forEach((h, idx) => msgObj[h.trim()] = cols[idx]?.trim());
 
-      // 날짜 구분 처리
+      // 날짜 구분
       if (msgObj.date) {
         const msgDate = new Date(msgObj.date);
         const dateStr = `${msgDate.getFullYear()}년 ${msgDate.getMonth()+1}월 ${msgDate.getDate()}일 ${["일","월","화","수","목","금","토"][msgDate.getDay()]}요일`;
@@ -135,7 +135,7 @@ async function loadChat(memberId) {
         }
       }
 
-      // 메시지 렌더링 (기존 코드 그대로)
+      // 메시지 렌더링
       const msgWrap = document.createElement("div");
       msgWrap.className = "chat-msg-wrap";
       const msgContent = document.createElement("div");
@@ -172,9 +172,8 @@ async function loadChat(memberId) {
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
 
-
 function replaceNickname(text, memberId) {
-  const nick = getNickname(memberId) || defaultNick;
+  const nick = getNickname(memberId);
   return text.replace(/\(name\)/g, nick);
 }
 
@@ -185,12 +184,20 @@ function initChatPage() {
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get("member");
   if (!memberId) return;
+
   const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
   document.getElementById("chatMemberName").textContent = displayName;
-  if (!getNickname(memberId)) openNickModal(MEMBER_LIST.find(m => m.id === memberId));
-  else loadChat(memberId);
+
+  loadChat(memberId);
+
+  if (!localStorage.getItem(memberId + "Name")) {
+    openNickModal(MEMBER_LIST.find(m => m.id === memberId));
+  }
 }
 
+// ==========================
+// 이하 이미지/동영상 팝업, 히스토리 팝업, 멤버 페이지 등 기존 코드 그대로
+// ==========================
 // ==========================
 // 이미지/동영상 팝업 (채팅창 전용)
 // ==========================
