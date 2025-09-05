@@ -106,10 +106,26 @@ async function loadChat(memberId) {
   const headers = lines[0].split(",");
   chatScroll.innerHTML = "";
 
+  let lastDateStr = null; //날짜 구분선용
+  
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(",");
     const msgObj = {};
     headers.forEach((h, idx) => msgObj[h.trim()] = cols[idx]?.trim());
+
+    //날짜 구분선 추가
+    if (msgObj.date) {
+      const msgDate = new Date(msgObj.date);
+      const dateStr = `${msgDate.getFullYear()}년 ${msgDate.getMonth()+1}월 ${msgDate.getDate()}일 ${["일","월","화","수","목","금","토"][msgDate.getDay()]}요일`;
+      if (dateStr !== lastDateStr) {
+        const dateDivider = document.createElement("div");
+        dateDivider.className = "chat-date-divider";
+        dateDivider.textContent = dateStr;
+        chatScroll.appendChild(dateDivider);
+        lastDateStr = dateStr;
+      }
+    }
+    
     const msgWrap = document.createElement("div");
     msgWrap.className = "chat-msg-wrap";
     const msgContent = document.createElement("div");
