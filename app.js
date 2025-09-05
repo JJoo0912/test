@@ -32,16 +32,6 @@ function setAppAspectRatio() {
 window.addEventListener("resize", setAppAspectRatio);
 window.addEventListener("load", setAppAspectRatio);
 
-/* 닉네임 관리 */
-function getNickname() { return localStorage.getItem("nickname"); }
-function saveNickname() {
-  const input = document.getElementById("nickInput");
-  const nick = input.value.trim();
-  if (nick) { localStorage.setItem("nickname", nick); closeNickModal(); openChatIfPending(); }
-}
-function openNickModal() { document.getElementById("nickModal").classList.remove("hidden"); }
-function closeNickModal() { document.getElementById("nickModal").classList.add("hidden"); }
-
 /* 아카이브 렌더링 */
 function renderArchive() {
   const archiveList = document.getElementById("archiveList");
@@ -126,7 +116,7 @@ function initChatPage() {
   const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
   document.getElementById("chatMemberName").textContent = displayName;
 
-  // ✅ 이제 팝업 대신 바로 채팅 불러오기
+  // ✅ 팝업 제거 → 바로 채팅 로드
   loadChat(memberId);
 }
 
@@ -173,23 +163,6 @@ function closeMediaPopup() {
   content.innerHTML = "";
   downloadBtn.innerHTML = "";
   downloadBtn.onclick = null;
-}
-
-/* 채팅 페이지 초기화 */
-function initChatPage() {
-  const params = new URLSearchParams(window.location.search);
-  const memberId = params.get("member");
-  if (!memberId) return;
-  const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
-  document.getElementById("chatMemberName").textContent = displayName;
-  if (!getNickname()) openNickModal();
-  else loadChat(memberId);
-}
-
-function openChatIfPending() {
-  const params = new URLSearchParams(window.location.search);
-  const memberId = params.get("member");
-  if (memberId) loadChat(memberId);
 }
 
 /* 멤버 프로필 페이지 초기화 */
