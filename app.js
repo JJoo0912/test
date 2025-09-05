@@ -22,6 +22,8 @@ const defaultNicks = {
   Junhan: "보무리",
   Jooyeon: "소중이"
 };
+
+let chatInitialized = false; // 중복 초기화 방지
 let currentMember = null;
 
 // ==========================
@@ -35,7 +37,6 @@ function setAppAspectRatio() {
   const long = Math.max(w, h);
 
   let appW, appH;
-
   if (short === h) {
     appH = short;
     appW = (appH / 16) * 9;
@@ -59,29 +60,6 @@ function getNickname(memberId) {
   return localStorage.getItem(memberId + "Name") || defaultNicks[memberId] || "빌런즈";
 }
 
-function openNickModal(member) {
-  currentMember = member;
-  document.getElementById("modalMemberName").textContent = member.display;
-  document.getElementById("nickInput").value = getNickname(member.id);
-  document.getElementById("nicknameModal").classList.remove("hidden");
-}
-
-function closeNickModal() {
-  document.getElementById("nicknameModal").classList.add("hidden");
-  currentMember = null;
-}
-
-function saveNickname() {
-  const input = document.getElementById("nickInput");
-  const nick = input.value.trim() || defaultNick;
-  if (!currentMember) return;
-
-  localStorage.setItem(currentMember.id + "Name", nick);
-  const nickText = document.getElementById(currentMember.id + "Nick");
-  if (nickText) nickText.textContent = `${currentMember.display} -> ${nick}`;
-  closeNickModal();
-}
-
 // ==========================
 // 아카이브 렌더링
 // ==========================
@@ -103,25 +81,6 @@ function renderArchive() {
   });
 }
 
-let chatPageInitialized = false;
-
-// ==========================
-// 채팅 페이지 초기화
-// ==========================
-function initChatPage() {
-  if (chatPageInitialized) return; // 이미 초기화 되었으면 실행 안함
-  chatPageInitialized = true;
-
-  const params = new URLSearchParams(window.location.search);
-  const memberId = params.get("member");
-  if (!memberId) return;
-
-  const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
-  document.getElementById("chatMemberName").textContent = displayName;
-
-  loadChat(memberId);
-}
-
 // ==========================
 // 채팅 불러오기
 // ==========================
@@ -129,17 +88,17 @@ async function loadChat(memberId) {
   const chatScroll = document.getElementById("chatScroll");
   if (!chatScroll) return;
 
-  const listRes = await fetch(`data/${memberId}_files.json`);
-  const csvFiles = await listRes.json();
-
+  // 이전 내용 초기화
   chatScroll.innerHTML = "";
   let lastDateStr = null;
+
+  const listRes = await fetch(`data/${memberId}_files.json`);
+  const csvFiles = await listRes.json();
 
   for (const csvFile of csvFiles) {
     const res = await fetch(`data/${memberId}/${csvFile}`);
     const csvText = await res.text();
-    // 빈 줄 제거
-    const lines = csvText.trim().split("\n").filter(line => line.trim() !== "");
+    const lines = csvText.split("\n").filter(line => line.trim() !== ""); // 빈 줄 제거
     const headers = lines[0].split(",");
 
     for (let i = 1; i < lines.length; i++) {
@@ -199,10 +158,28 @@ async function loadChat(memberId) {
   chatScroll.scrollTop = chatScroll.scrollHeight;
 }
 
+function replaceNickname(text, memberId) {
+  const nick = getNickname(memberId);
+  return text.replace(/\(name\)/g, nick);
+}
+
 // ==========================
-// 이하 이미지/동영상 팝업, 히스토리 팝업, 멤버 페이지 등 기존 코드 그대로
+// 채팅 페이지 초기화
 // ==========================
-// ==========================
+function initChatPage() {
+  if (chatInitialized) return; // 중복 방지
+  chatInitialized = true;
+
+  const params = new URLSearchParams(window.location.search);
+  const memberId = params.get("member");
+  if (!memberId) return;
+
+  const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
+  document.getElementById("chatMemberName").textContent = displayName;
+
+  loadChat(memberId);
+}
+
 // 이미지/동영상 팝업 (채팅창 전용)
 // ==========================
 function openMediaPopup(src, type) {
