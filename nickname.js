@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const memberListEl = document.getElementById("nicknameMemberList");
   const displayArea = document.getElementById("nicknameDisplayArea");
 
+  // 멤버 리스트 렌더링
   MEMBER_LIST.forEach(member => {
-    // 프로필 아이콘
     const wrap = document.createElement("div");
     wrap.className = "nickname-member-wrap";
 
@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     img.className = "nickname-member-img";
     img.alt = member.display;
 
-    // 닉네임 표시
     const nickText = document.createElement("div");
     nickText.className = "nickname-text";
     nickText.id = `${member.id}Nick`;
@@ -35,17 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
     wrap.appendChild(nickText);
     memberListEl.appendChild(wrap);
 
-    // 클릭 시 모달 열기
     img.addEventListener("click", () => openNickModal(member));
   });
 
   // 모달 버튼 이벤트
   document.getElementById("saveNickBtn").addEventListener("click", saveNickname);
   document.getElementById("cancelNickBtn").addEventListener("click", closeNickModal);
+
+  // 뒤로가기 버튼 이벤트
+  const backBtn = document.getElementById("backToSetting");
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      window.location.href = "setting.html";
+    });
+  }
 });
 
 // 선택 멤버 저장
 let currentMember = null;
+
 function openNickModal(member) {
   currentMember = member;
   document.getElementById("modalMemberName").textContent = member.display;
@@ -63,10 +70,8 @@ function saveNickname() {
   const nick = input.value.trim() || defaultNick;
   if (!currentMember) return;
 
-  // 저장
   localStorage.setItem(currentMember.id + "Name", nick);
 
-  // 표시 업데이트
   const nickText = document.getElementById(currentMember.id + "Nick");
   nickText.textContent = `${currentMember.display} -> ${nick}`;
 
