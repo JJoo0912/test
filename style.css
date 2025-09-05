@@ -304,6 +304,29 @@ html, body {
   display:inline-block;
 }
 
+/* 날짜 구분선 전체 영역 */
+.chat-date-divider {
+  position: relative;
+  text-align: center;
+  margin: 20px 0; /* 위아래 여백 */
+}
+
+/* 구분선 */
+.chat-date-divider::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(200,200,200,0.3); /* 연한 회색, 반투명 */
+  margin-bottom: 5px; /* 텍스트와 선 사이 간격 */
+}
+
+/* 날짜 텍스트 */
+.chat-date-divider span {
+  font-size: 13px;
+  color: rgba(100,100,100,0.8); /* 조금 진한 회색 */
+}
+
 /* 메타 정보 */
 .chat-meta {
   font-size:11px;
