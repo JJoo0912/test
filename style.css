@@ -157,6 +157,47 @@ html, body {
 /* 멤버 프로필 페이지 */
 .app-frame--profile { overflow:hidden; }
 
+/* 히스토리 네비게이션 버튼 & 인포 */
+.media-popup-card {
+  position: relative;
+}
+
+.media-nav-prev,
+.media-nav-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  border-radius: 18px;
+  cursor: pointer;
+}
+
+.media-nav-prev { left: 8px; }
+.media-nav-next { right: 8px; }
+
+.media-nav-prev:disabled,
+.media-nav-next:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.media-nav-info {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+  border-radius: 10px;
+}
+
 /* =========================
    멤버 프로필 카드 높이 조정 (member.html)
 ========================= */
