@@ -227,35 +227,43 @@ function closeMediaPopup() {
 }
 
 // ==========================
-// 멤버 히스토리 팝업
+// 멤버 히스토리 팝업 (동적 + 최신 이미지 기본 표시)
 // ==========================
 let historyPopupCurrentIndex = 0;
 let historyPopupImages = [];
 let historyPopupType = ""; // "profile" or "background"
 let historyPopupMemberId = "";
 
+// 히스토리 팝업 열기
 function openHistoryPopup(memberId, type) {
   historyPopupMemberId = memberId;
   historyPopupType = type;
   historyPopupImages = [];
 
-  for (let i = 1; i <= 10; i++) {
-    const src = `images/${type}/${memberId}/${i}.jpg`;
-    const xhr = new XMLHttpRequest();
-    xhr.open('HEAD', src, false);
-    xhr.send();
-    if (xhr.status !== 404) historyPopupImages.push(src);
-  }
+  // JSON 파일에서 해당 멤버/타입 이미지 목록 로드
+  fetch(`data/history/${memberId}_${type}.json`)
+    .then(res => res.json())
+    .then(files => {
+      if (!files || files.length === 0) return;
 
-  if (historyPopupImages.length === 0) return;
-  historyPopupCurrentIndex = historyPopupImages.length - 1;
-  updateHistoryPopupImage();
-  document.getElementById("historyPopup").classList.remove("hidden");
+      // 이미지 경로 배열 생성
+      historyPopupImages = files.map(f => `images/${type}/${memberId}/${f}`);
+
+      // 최신 이미지(숫자 가장 큰) 기본 표시
+      historyPopupCurrentIndex = historyPopupImages.length - 1;
+
+      // 화면에 표시
+      updateHistoryPopupImage();
+      document.getElementById("historyPopup").classList.remove("hidden");
+    })
+    .catch(err => console.error("히스토리 이미지 로드 실패:", err));
 }
 
+// 히스토리 이미지 업데이트
 function updateHistoryPopupImage() {
   const content = document.getElementById("historyPopupContent");
   content.innerHTML = "";
+
   const img = document.createElement("img");
   img.src = historyPopupImages[historyPopupCurrentIndex];
   img.style.width = "100%";
@@ -264,6 +272,7 @@ function updateHistoryPopupImage() {
   content.appendChild(img);
 }
 
+// 이전/다음 버튼
 function historyPrev() {
   if (historyPopupCurrentIndex > 0) {
     historyPopupCurrentIndex--;
@@ -278,6 +287,7 @@ function historyNext() {
   }
 }
 
+// 다운로드 버튼
 function historyDownload() {
   const src = historyPopupImages[historyPopupCurrentIndex];
   const a = document.createElement("a");
@@ -288,6 +298,7 @@ function historyDownload() {
   document.body.removeChild(a);
 }
 
+// 팝업 닫기
 function closeHistoryPopup() {
   document.getElementById("historyPopup").classList.add("hidden");
 }
