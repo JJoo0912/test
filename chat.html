@@ -27,18 +27,6 @@
       </div>
     </div>
 
-    <!-- 닉네임 설정 모달 -->
-    <div id="nicknameModal" class="modal hidden">
-      <div class="modal-card">
-        <h3>내 닉네임 설정</h3>
-        <input id="nickInput" type="text" placeholder="닉네임 입력" maxlength="20" />
-        <div class="modal-actions">
-          <button type="button" class="secondary-btn" onclick="closeNickModal()">취소</button>
-          <button type="button" class="primary-btn" onclick="saveNickname()">확인</button>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <script>
@@ -52,9 +40,8 @@
       const displayName = MEMBER_LIST.find(m => m.id === memberId)?.display || memberId;
       document.getElementById("chatMemberName").textContent = displayName;
 
-      // 닉네임 설정 여부 확인
-      if (!getNickname(memberId)) openNickModal(MEMBER_LIST.find(m => m.id === memberId));
-      else loadChat(memberId);
+      // 닉네임이 없으면 기본값 사용, 바로 채팅 로딩
+      loadChat(memberId);
     });
   </script>
 </body>
